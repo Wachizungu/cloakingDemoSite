@@ -1,0 +1,37 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Simple captcha{% endblock %}
+{% block content %}
+    <h1>Simple captcha</h1>
+    {% if captcha_passed is None %}
+        <form action='/cloakingsite/simplecaptcha' method='POST'> {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class='js-captcha-refresh btn btn-secondary'>refresh captcha</button>
+        </form>
+        </body>
+    {% elif captcha_passed %}
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+    {% else %}
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+    {% endif %}
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('.js-captcha-refresh').click(function () {
+                $form = $(this).parents('form');
+
+                $.getJSON("/captcha/refresh/", function (result) {
+                    $('.captcha').attr('src', result['image_url']);
+                    $('#id_captcha_0').val(result['key'])
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+
+
