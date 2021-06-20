@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloakingSite.apps.CloakingsiteConfig',
+    'django.contrib.gis.geoip2',
     'captcha',
 ]
 
@@ -125,3 +126,5 @@ STATICFILES_DIRS = (os.path.join('static'),)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GEOIP_PATH = os.path.join('geodata')

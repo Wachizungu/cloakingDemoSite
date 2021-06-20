@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from .forms import CaptchaTestForm
+from django.contrib.gis.geoip2 import GeoIP2
 
 
 def home(request):
@@ -23,4 +24,26 @@ def simple_captcha(request):
     else:
         form = CaptchaTestForm()
 
-    return render(request, 'cloakingSite/simpleCaptcha.html', {'form': form, 'captcha_passed': captcha_passed, 'nbar': 'simple_captcha'})
+    return render(request, 'cloakingSite/simpleCaptcha.html',
+                  {'form': form, 'captcha_passed': captcha_passed, 'nbar': 'simple_captcha'})
+
+
+def geo_check(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    if ip == '127.0.0.1':
+        country_code = "BE"
+    else:
+        g = GeoIP2()
+        country_code = g.country(ip)['country_code']
+
+    if country_code == "BE":
+        geo_check_passed = True
+    else:
+        geo_check_passed = False
+
+    return render(request, 'cloakingSite/geo_check.html',
+                  {'geo_check_passed': geo_check_passed, 'country_code': country_code, 'nbar': 'geo_check'})
