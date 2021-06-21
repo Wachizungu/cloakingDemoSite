@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!=(ic4zpz014c1hv8mn4-b#8+-b%by#(w)jq(wjlv#m-z4abb2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -127,4 +127,4 @@ STATICFILES_DIRS = (os.path.join('static'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GEOIP_PATH = os.path.join('geodata')
+GEOIP_PATH = BASE_DIR / 'geodata'
