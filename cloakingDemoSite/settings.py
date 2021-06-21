@@ -129,6 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GEOIP_PATH = BASE_DIR / 'geodata'
 
-RECAPTCHA_SECRET = ''
+RECAPTCHA_SECRET = '6LcfLUobAAAAABmelnJnN-cqhNUv5BAMKF0xY-ui'
 
 EICAR_MODE = False
