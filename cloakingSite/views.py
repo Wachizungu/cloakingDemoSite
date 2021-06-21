@@ -5,6 +5,7 @@ from .forms import CaptchaTestForm
 from django.contrib.gis.geoip2 import GeoIP2
 import requests
 import json
+from django.conf import settings
 
 
 def home(request):
@@ -55,7 +56,7 @@ def recaptchav2(request):
     captcha_passed = None
     if request.POST:
         url = 'https://www.google.com/recaptcha/api/siteverify'
-        payload = {'secret': '6LcfLUobAAAAABmelnJnN-cqhNUv5BAMKF0xY-ui', 'response': request.POST.get("g-recaptcha-response")}
+        payload = {'secret': settings.RECAPTCHA_SECRET, 'response': request.POST.get("g-recaptcha-response")}
         r = requests.post(url, data=payload)
         if r.status_code == 200:
             captcha_passed = json.loads(r.text)['success']
