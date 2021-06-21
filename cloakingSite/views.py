@@ -69,3 +69,20 @@ def recaptchav2(request):
             if captcha_passed and settings.EICAR_MODE:
                 return FileResponse(open('cloakingSite/eicar.com', 'rb'))
     return render(request, 'cloakingSite/recaptchav2.html', {'captcha_passed': captcha_passed, 'nbar': 'recaptchav2'})
+
+
+def referrer_check(request):
+    referrer = None
+    if 'HTTP_REFERER' in request.META:
+        referrer = request.META['HTTP_REFERER']
+        if referrer == 'https://www.google.com/':
+            if settings.EICAR_MODE:
+                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+            else:
+                referrer_check_passed = True
+        else:
+            referrer_check_passed = False
+    else:
+        referrer_check_passed = None
+    return render(request, 'cloakingSite/referer_check.html',
+                  {'referrer_check_passed': referrer_check_passed, 'referrer': referrer, 'nbar': 'referercheck'})
