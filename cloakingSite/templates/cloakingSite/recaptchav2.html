@@ -1,0 +1,23 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Simple captcha{% endblock %}
+{% block content %}
+    <h1>ReCAPTCHA v2</h1>
+    {% if captcha_passed is None %}
+        <form action="/cloakingsite/recaptchav2" method="POST"> {% csrf_token %}
+            <div class="g-recaptcha" data-sitekey="6LcfLUobAAAAAGJND4cBYx8d_vtoG321LqwaQ8vH"></div>
+            <br/>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% elif captcha_passed %}
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+    {% else %}
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+    {% endif %}
+
+{% endblock %}
+{% block scripts %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
+

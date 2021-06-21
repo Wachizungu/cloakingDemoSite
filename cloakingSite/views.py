@@ -3,6 +3,8 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from .forms import CaptchaTestForm
 from django.contrib.gis.geoip2 import GeoIP2
+import requests
+import json
 
 
 def home(request):
@@ -47,3 +49,14 @@ def geo_check(request):
 
     return render(request, 'cloakingSite/geo_check.html',
                   {'geo_check_passed': geo_check_passed, 'country_code': country_code, 'nbar': 'geo_check'})
+
+
+def recaptchav2(request):
+    captcha_passed = None
+    if request.POST:
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {'secret': '6LcfLUobAAAAABmelnJnN-cqhNUv5BAMKF0xY-ui', 'response': request.POST.get("g-recaptcha-response")}
+        r = requests.post(url, data=payload)
+        if r.status_code == 200:
+            captcha_passed = json.loads(r.text)['success']
+    return render(request, 'cloakingSite/recaptchav2.html', {'captcha_passed': captcha_passed, 'nbar': 'recaptchav2'})
