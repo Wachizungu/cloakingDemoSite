@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from .forms import CaptchaTestForm
@@ -20,7 +20,10 @@ def simple_captcha(request):
         # Validate the form: the captcha field will automatically
         # check the input
         if form.is_valid():
-            captcha_passed = True
+            if settings.EICAR_MODE:
+                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+            else:
+                captcha_passed = True
         else:
             captcha_passed = False
 
@@ -44,7 +47,10 @@ def geo_check(request):
         country_code = g.country(ip)['country_code']
 
     if country_code == "BE":
-        geo_check_passed = True
+        if settings.EICAR_MODE:
+            return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+        else:
+            geo_check_passed = True
     else:
         geo_check_passed = False
 
@@ -60,4 +66,6 @@ def recaptchav2(request):
         r = requests.post(url, data=payload)
         if r.status_code == 200:
             captcha_passed = json.loads(r.text)['success']
+            if captcha_passed and settings.EICAR_MODE:
+                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
     return render(request, 'cloakingSite/recaptchav2.html', {'captcha_passed': captcha_passed, 'nbar': 'recaptchav2'})
