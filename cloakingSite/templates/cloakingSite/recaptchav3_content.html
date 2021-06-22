@@ -3,7 +3,6 @@
     <p>Congrats, you passed the captcha test with a score of {{ score }} (You are considered human if score > 0.5).</p>
     <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
 {% elif score == None %}
-    <p>Unfortunately, something went wrong and you did not get a recaptcha score assigned.</p>
     <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
 {% else %}
     <p>Unfortunately, you failed the captcha test with a score of {{ score }} (You are considered human if score > 0.5).</p>
