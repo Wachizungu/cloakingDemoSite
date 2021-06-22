@@ -62,13 +62,37 @@ def recaptchav2(request):
     captcha_passed = None
     if request.POST:
         url = 'https://www.google.com/recaptcha/api/siteverify'
-        payload = {'secret': settings.RECAPTCHA_SECRET, 'response': request.POST.get("g-recaptcha-response")}
+        payload = {'secret': settings.RECAPTCHAV2_SECRET_KEY, 'response': request.POST.get("g-recaptcha-response")}
         r = requests.post(url, data=payload)
         if r.status_code == 200:
             captcha_passed = json.loads(r.text)['success']
             if captcha_passed and settings.EICAR_MODE:
                 return FileResponse(open('cloakingSite/eicar.com', 'rb'))
-    return render(request, 'cloakingSite/recaptchav2.html', {'captcha_passed': captcha_passed, 'nbar': 'recaptchav2'})
+    return render(request, 'cloakingSite/recaptchav2.html',
+                  {'captcha_passed': captcha_passed, 'site_key': settings.RECAPTCHAV2_SITE_KEY, 'nbar': 'recaptchav2'})
+
+
+def recaptchav3(request):
+    return render(request, 'cloakingSite/recaptchav3.html', {'site_key': settings.RECAPTCHAV3_SITE_KEY, 'nbar': 'recaptchav3'})
+
+
+def recaptchav3content(request):
+    captcha_passed = None
+    score = None
+    if request.POST:
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {'secret': settings.RECAPTCHAV3_SECRET_KEY, 'response': request.POST.get("token")}
+        r = requests.post(url, data=payload)
+        if r.status_code == 200:
+            response = json.loads(r.text)
+            captcha_success = response['success']
+            if captcha_success:
+                score = response['score']
+                if score > 0.5:
+                    captcha_passed = True
+            if captcha_passed and settings.EICAR_MODE:
+                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+    return render(request, 'cloakingSite/recaptchav3_content.html', {'captcha_passed': captcha_passed, 'score': score})
 
 
 def referrer_check(request):
@@ -85,4 +109,4 @@ def referrer_check(request):
     else:
         referrer_check_passed = None
     return render(request, 'cloakingSite/referer_check.html',
-                  {'referrer_check_passed': referrer_check_passed, 'referrer': referrer, 'nbar': 'referercheck'})
+                  {'referrer_check_passed': referrer_check_passed, 'referrer': referrer, 'nbar': 'referrercheck'})

@@ -8,4 +8,6 @@ urlpatterns = [
     path('geocheck', views.geo_check, name='cloakingSite_geo_check'),
     path('referercheck', views.referrer_check, name='cloakingSite_referrer_check'),
     path('recaptchav2', views.recaptchav2, name='cloakingSite_recaptchav2'),
+    path('recaptchav3', views.recaptchav3, name='cloakingSite_recaptchav3'),
+    path('recaptchav3content', views.recaptchav3content, name='cloakingSite_recaptchav3content'),
 ]

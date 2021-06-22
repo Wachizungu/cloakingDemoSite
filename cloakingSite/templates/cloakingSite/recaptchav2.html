@@ -5,7 +5,7 @@
     <h1>ReCAPTCHA v2</h1>
     {% if captcha_passed is None %}
         <form action="/cloakingsite/recaptchav2" method="POST"> {% csrf_token %}
-            <div class="g-recaptcha" data-sitekey="6LcfLUobAAAAAGJND4cBYx8d_vtoG321LqwaQ8vH"></div>
+            <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
             <br/>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

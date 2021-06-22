@@ -1,8 +1,8 @@
 {% extends "cloakingSite/base.html" %}
 {% load static %}
-{% block title %}Geo check{% endblock %}
+{% block title %}Referrer check{% endblock %}
 {% block content %}
-    <h1>Geo check</h1>
+    <h1>Referrer check</h1>
     <p>This page loads 'bad' content if the referer header is 'https://www.google.com/', indicating you reached this
         site via google. Else it shows 'good' content.</p>
     {% if referrer_check_passed == True or referrer_check_passed == False %}
