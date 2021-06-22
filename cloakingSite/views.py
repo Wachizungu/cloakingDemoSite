@@ -6,6 +6,7 @@ from django.contrib.gis.geoip2 import GeoIP2
 import requests
 import json
 from django.conf import settings
+from cloakingSite.models import Fingerprint
 
 
 def home(request):
@@ -73,7 +74,8 @@ def recaptchav2(request):
 
 
 def recaptchav3(request):
-    return render(request, 'cloakingSite/recaptchav3.html', {'site_key': settings.RECAPTCHAV3_SITE_KEY, 'nbar': 'recaptchav3'})
+    return render(request, 'cloakingSite/recaptchav3.html',
+                  {'site_key': settings.RECAPTCHAV3_SITE_KEY, 'nbar': 'recaptchav3'})
 
 
 def recaptchav3content(request):
@@ -110,3 +112,41 @@ def referrer_check(request):
         referrer_check_passed = None
     return render(request, 'cloakingSite/referer_check.html',
                   {'referrer_check_passed': referrer_check_passed, 'referrer': referrer, 'nbar': 'referrercheck'})
+
+
+def fingerprintjs(request):
+    return render(request, 'cloakingSite/fingerprintjs.html', {'nbar': 'fingerprintjs'})
+
+
+def fingerprintjscontent(request):
+    visits = 0
+    if request.POST:
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        # set ip
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        hash = request.POST.get("hash")
+
+        # Check if fingerprint already exists
+        try:
+            fingerprint = Fingerprint.objects.get(hash=hash)
+        except Fingerprint.DoesNotExist:
+            fingerprint = None
+
+        # If fingerprint already exists increment visits, otherwise save new fingerprint
+        if fingerprint:
+            fingerprint.visits += 1
+        else:
+            fingerprint = Fingerprint(hash=hash, ip=ip, visits=1)
+        fingerprint.save()
+        visits = fingerprint.visits
+
+    return render(request, 'cloakingSite/fingerprintjs_content.html', {'visits': visits})
+
+
+def resetfingerprintjs(request):
+    Fingerprint.objects.filter().delete()
+    return redirect('/cloakingsite/fingerprintjs')

@@ -1,0 +1,32 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Fingerprint check using fingerprintjs{% endblock %}
+{% block content %}
+    <h1>Fingerprint check using fingerprintjs</h1>
+    <div id="content"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function initFingerprintJS() {
+            // Initialize an agent at application startup.
+            const fpPromise = FingerprintJS.load()
+
+            // Get the visitor identifier when you need it.
+            fpPromise
+                .then(fp => fp.get())
+                .then(result => {
+                    // This is the visitor identifier:
+                    const visitorId = result.visitorId
+                    console.log(visitorId)
+                    $('#content').load('fingerprintjscontent', {hash: visitorId, csrfmiddlewaretoken: "{{ csrf_token }}"});
+                })
+        }
+    </script>
+    <script
+            async
+            src="//cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"
+            onload="initFingerprintJS()"
+    ></script>
+{% endblock %}
+
+

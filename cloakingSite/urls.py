@@ -10,4 +10,7 @@ urlpatterns = [
     path('recaptchav2', views.recaptchav2, name='cloakingSite_recaptchav2'),
     path('recaptchav3', views.recaptchav3, name='cloakingSite_recaptchav3'),
     path('recaptchav3content', views.recaptchav3content, name='cloakingSite_recaptchav3content'),
+    path('fingerprintjs', views.fingerprintjs, name='cloakingSite_fingerprintjs'),
+    path('fingerprintjscontent', views.fingerprintjscontent, name='cloakingSite_fingerprintjscontent'),
+    path('resetfingerprintjs', views.resetfingerprintjs, name='cloakingSite_resetfingerprintjs'),
 ]

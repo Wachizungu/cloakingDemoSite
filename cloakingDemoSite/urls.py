@@ -18,6 +18,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.index),
     path('cloakingsite/', include('cloakingSite.urls', namespace='cloakingSite')),
     path('captcha/', include('captcha.urls')),

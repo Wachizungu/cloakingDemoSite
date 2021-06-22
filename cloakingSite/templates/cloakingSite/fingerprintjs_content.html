@@ -1,0 +1,14 @@
+{% load static %}
+{% if visits == 0 %}
+    <p>You went here directly, nice try!</p>
+    <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+{% elif visits == 1 %}
+    <p>This is the first visit with this fingerprint, so you get the bad content.</p>
+    <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+{% elif visits == 2 %}
+    <p>This is the second visit with this fingerprint, so you do not get the actual bad content but still something that looks like a threat.</p>
+    <img src="{% static "images/cat-meat-threat.jpg" %}" class="img-fluid" alt="Responsive image">
+{% else %}
+    <p>You are on a roll, {{ visits }} visits with this fingerprint so far. You don't get to see the bad content anymore, sorry.</p>
+    <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+{% endif %}
