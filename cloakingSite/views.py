@@ -164,3 +164,11 @@ def useragent_check(request):
         useragent_check_passed = False
     return render(request, 'cloakingSite/useragent_check.html',
                   {'useragent_check_passed': useragent_check_passed, 'useragent': useragent, 'nbar': 'useragentcheck'})
+
+
+def good(request):
+    return render(request, 'cloakingSite/good.html')
+
+
+def bad(request):
+    return render(request, 'cloakingSite/bad.html')
