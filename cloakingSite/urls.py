@@ -17,4 +17,7 @@ urlpatterns = [
     path('good', views.good, name='cloakingSite_good'),
     path('bad', views.bad, name='cloakingSite_bad'),
     path('alert', views.alert, name='cloakingSite_alert'),
+    path('webcamcheck', views.webcam_check, name='cloakingSite_webcamcheck'),
+    path('speakerscheck', views.speakers_check, name='cloakingSite_speakerscheck'),
+    path('microphonecheck', views.microphone_check, name='cloakingSite_microphonecheck'),
 ]

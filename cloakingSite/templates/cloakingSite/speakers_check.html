@@ -1,0 +1,22 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Speakers check{% endblock %}
+{% block content %}
+    <h1>Speakers check</h1>
+    <p>This page loads 'bad' content if sound speakers detected (note that virtual devices will be detected as well).
+        Else it shows 'good' content.</p>
+    <div id="content"></div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static "js/DetectRTC.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            DetectRTC.load(function () {
+                if (DetectRTC.hasSpeakers)
+                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                else
+                    $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            });
+        });
+    </script>
+{% endblock %}

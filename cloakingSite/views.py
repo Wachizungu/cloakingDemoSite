@@ -176,3 +176,15 @@ def bad(request):
 
 def alert(request):
     return render(request, 'cloakingSite/alert.html', {'nbar': 'alert'})
+
+
+def webcam_check(request):
+    return render(request, 'cloakingSite/webcam_check.html', {'nbar': 'webcamcheck'})
+
+
+def microphone_check(request):
+    return render(request, 'cloakingSite/microphone_check.html', {'nbar': 'microphonecheck'})
+
+
+def speakers_check(request):
+    return render(request, 'cloakingSite/speakers_check.html', {'nbar': 'speakerscheck'})

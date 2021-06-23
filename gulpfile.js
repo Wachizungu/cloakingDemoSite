@@ -5,6 +5,8 @@ function javascript(cb) {
         .pipe(dest('./static/js/'));
     src('./bower_components/bootstrap/dist/js/bootstrap.min.js')
         .pipe(dest('./static/js/'));
+    src('./bower_components/detectrtc/DetectRTC.min.js')
+        .pipe(dest('./static/js/'));
     cb();
 }
 
