@@ -172,3 +172,7 @@ def good(request):
 
 def bad(request):
     return render(request, 'cloakingSite/bad.html')
+
+
+def alert(request):
+    return render(request, 'cloakingSite/alert.html', {'nbar': 'alert'})

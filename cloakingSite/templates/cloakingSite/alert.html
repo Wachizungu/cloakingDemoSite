@@ -1,0 +1,16 @@
+{% extends "cloakingSite/base.html" %}
+{% block title %}Alert check{% endblock %}
+{% block content %}
+    <h1>Alert check</h1>
+    <div id="content"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            alert('Please click ok to indicate you are human.');
+            $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+        });
+    </script>
+{% endblock %}
+
+

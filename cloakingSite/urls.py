@@ -16,4 +16,5 @@ urlpatterns = [
     path('resetfingerprintjs', views.resetfingerprintjs, name='cloakingSite_resetfingerprintjs'),
     path('good', views.good, name='cloakingSite_good'),
     path('bad', views.bad, name='cloakingSite_bad'),
+    path('alert', views.alert, name='cloakingSite_alert'),
 ]
