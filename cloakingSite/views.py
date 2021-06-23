@@ -150,3 +150,17 @@ def fingerprintjscontent(request):
 def resetfingerprintjs(request):
     Fingerprint.objects.filter().delete()
     return redirect('/cloakingsite/fingerprintjs')
+
+
+def useragent_check(request):
+    referrer = None
+    useragent = request.META.get('HTTP_USER_AGENT')
+    if useragent == 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0':
+        if settings.EICAR_MODE:
+            return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+        else:
+            useragent_check_passed = True
+    else:
+        useragent_check_passed = False
+    return render(request, 'cloakingSite/useragent_check.html',
+                  {'useragent_check_passed': useragent_check_passed, 'useragent': useragent, 'nbar': 'useragentcheck'})

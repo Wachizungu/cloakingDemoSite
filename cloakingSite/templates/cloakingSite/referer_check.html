@@ -3,10 +3,10 @@
 {% block title %}Referrer check{% endblock %}
 {% block content %}
     <h1>Referrer check</h1>
-    <p>This page loads 'bad' content if the referer header is 'https://www.google.com/', indicating you reached this
+    <p>This page loads 'bad' content if the referer header is <span class="fw-bold">https://www.google.com/</span>, indicating you reached this
         site via google. Else it shows 'good' content.</p>
     {% if referrer_check_passed == True or referrer_check_passed == False %}
-        <p>Your referer header was set to {{ referrer }}.</p>
+        <p>Your referer header was set to <span class="fw-bold">{{ referrer }}</span>.</p>
     {% elif referrer_check_passed == None %}
         <p>You didn't have the referer header set.</p>
     {% endif %}
