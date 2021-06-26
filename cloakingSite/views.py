@@ -214,3 +214,13 @@ def date_check_content(request):
 
     return render(request, 'cloakingSite/date_check_content.html',
                   {'date_check_passed': date_check_passed, 'date_received': date_received})
+
+
+def opener_check_initial(request):
+    uri = request.get_raw_uri()
+    return render(request, 'cloakingSite/check_opener_initial.html', {'nbar': 'openercheck', 'uri': uri})
+
+
+def opener_check(request):
+    expected_opener = request.scheme + '://' + request.get_host() + '/cloakingsite/openercheckinitial'
+    return render(request, 'cloakingSite/check_opener.html', {'expected_opener': expected_opener})

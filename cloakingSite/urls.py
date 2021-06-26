@@ -23,4 +23,6 @@ urlpatterns = [
     path('browserhistorycheck', views.immediate_browser_history_check, name='cloakingSite_browserhistorycheck'),
     path('datecheck', views.date_check, name='cloakingSite_datecheck'),
     path('datecheckcontent', views.date_check_content, name='cloakingSite_datecheckcontent'),
+    path('openercheck', views.opener_check, name='cloakingSite_openercheck'),
+    path('openercheckinitial', views.opener_check_initial, name='cloakingSite_openercheckinitial'),
 ]
