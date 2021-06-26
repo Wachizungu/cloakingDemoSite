@@ -7,10 +7,10 @@
 {% block scripts %}
     <script>
         $(document).ready(function () {
-            if (window.opener.location.href == "{{ expected_opener }}")
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-                else
-                    $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            if (window.opener !== null && window.opener.location.href == "{{ expected_opener }}")
+                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            else
+                $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
         });
     </script>
 {% endblock %}
