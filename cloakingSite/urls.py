@@ -21,4 +21,6 @@ urlpatterns = [
     path('speakerscheck', views.speakers_check, name='cloakingSite_speakerscheck'),
     path('microphonecheck', views.microphone_check, name='cloakingSite_microphonecheck'),
     path('browserhistorycheck', views.immediate_browser_history_check, name='cloakingSite_browserhistorycheck'),
+    path('datecheck', views.date_check, name='cloakingSite_datecheck'),
+    path('datecheckcontent', views.date_check_content, name='cloakingSite_datecheckcontent'),
 ]

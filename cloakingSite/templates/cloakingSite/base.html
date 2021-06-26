@@ -32,7 +32,7 @@
                         <a class="nav-link{% if nbar == 'home' %} active{% endif %}" href="/cloakingsite">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' or nbar == 'immediatebrowserhistory' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' or nbar == 'immediatebrowserhistory' or nbar == 'datecheck' %} active{% endif %}"
                            href="#" id="clientSideState" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser state
@@ -48,6 +48,8 @@
                                    href="/cloakingsite/microphonecheck">Microphone check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'immediatebrowserhistory' %} active{% endif %}"
                                    href="/cloakingsite/browserhistorycheck">Immediate browser history check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'datecheck' %} active{% endif %}"
+                                   href="/cloakingsite/datecheck">Date check</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

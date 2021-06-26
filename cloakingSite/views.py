@@ -7,6 +7,7 @@ import requests
 import json
 from django.conf import settings
 from cloakingSite.models import Fingerprint
+from datetime import datetime
 
 
 def home(request):
@@ -192,3 +193,24 @@ def speakers_check(request):
 
 def immediate_browser_history_check(request):
     return render(request, 'cloakingSite/immediate_browser_history.html', {'nbar': 'immediatebrowserhistory'})
+
+
+def date_check(request):
+    return render(request, 'cloakingSite/date_check.html', {'nbar': 'datecheck'})
+
+
+def date_check_content(request):
+    date_check_passed = None
+    if request.POST:
+        now = datetime.now()
+        date_received = request.POST.get("date")
+        date_received_datetime = datetime.strptime(date_received, '%Y/%m/%d')
+        date_diff = date_received_datetime - now
+
+        if abs(date_diff.days) < 3:
+            date_check_passed = True
+        else:
+            date_check_passed = False
+
+    return render(request, 'cloakingSite/date_check_content.html',
+                  {'date_check_passed': date_check_passed, 'date_received': date_received})
