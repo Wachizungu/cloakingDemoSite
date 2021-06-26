@@ -218,9 +218,9 @@ def date_check_content(request):
 
 def opener_check_initial(request):
     uri = request.get_raw_uri()
-    return render(request, 'cloakingSite/check_opener_initial.html', {'nbar': 'openercheck', 'uri': uri})
+    return render(request, 'cloakingSite/opener_check_initial.html', {'nbar': 'openercheck', 'uri': uri})
 
 
 def opener_check(request):
     expected_opener = request.scheme + '://' + request.get_host() + '/cloakingsite/openercheckinitial'
-    return render(request, 'cloakingSite/check_opener.html', {'expected_opener': expected_opener})
+    return render(request, 'cloakingSite/opener_check.html', {'expected_opener': expected_opener})
