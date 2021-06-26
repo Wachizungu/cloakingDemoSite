@@ -188,3 +188,7 @@ def microphone_check(request):
 
 def speakers_check(request):
     return render(request, 'cloakingSite/speakers_check.html', {'nbar': 'speakerscheck'})
+
+
+def immediate_browser_history_check(request):
+    return render(request, 'cloakingSite/immediate_browser_history.html', {'nbar': 'immediatebrowserhistory'})

@@ -20,4 +20,5 @@ urlpatterns = [
     path('webcamcheck', views.webcam_check, name='cloakingSite_webcamcheck'),
     path('speakerscheck', views.speakers_check, name='cloakingSite_speakerscheck'),
     path('microphonecheck', views.microphone_check, name='cloakingSite_microphonecheck'),
+    path('browserhistorycheck', views.immediate_browser_history_check, name='cloakingSite_browserhistorycheck'),
 ]

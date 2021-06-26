@@ -17,9 +17,7 @@
         <!-- Custom styles for this template -->
         <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
     </head>
-
     <body>
-
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark px-2">
@@ -47,6 +45,8 @@
                                    href="/cloakingsite/speakerscheck">Speakers check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'microphonecheck' %} active{% endif %}"
                                    href="/cloakingsite/microphonecheck">Microphone check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'immediatebrowserhistory' %} active{% endif %}"
+                                   href="/cloakingsite/browserhistorycheck">Immediate browser history check</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' %} active{% endif %}">

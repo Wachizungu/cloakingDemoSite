@@ -1,0 +1,18 @@
+{% extends "cloakingSite/base.html" %}
+{% block title %}Immediate browser history check{% endblock %}
+{% block content %}
+    <h1>Immediate browser history check</h1>
+    <div id="content"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            if(history.length > 2)
+                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            else
+                $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+        });
+    </script>
+{% endblock %}
+
+
