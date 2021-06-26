@@ -33,49 +33,52 @@
                     <li class="nav-item">
                         <a class="nav-link{% if nbar == 'home' %} active{% endif %}" href="/cloakingsite">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'simple_captcha' %} active{% endif %}"
-                           href="/cloakingsite/simplecaptcha">Simple captcha</a>
+                    <li class="nav-item dropdown{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' %} active{% endif %}">
+                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideState" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Client side - browser state
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="clientSideState">
+                            <li><a class="dropdown-item{% if nbar == 'fingerprintjs' %} active{% endif %}"
+                                   href="/cloakingsite/fingerprintjs">fingerprintjs</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'webcamcheck' %} active{% endif %}"
+                                   href="/cloakingsite/webcamcheck">Webcam check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'speakerscheck' %} active{% endif %}"
+                                   href="/cloakingsite/speakerscheck">Speakers check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'microphonecheck' %} active{% endif %}"
+                                   href="/cloakingsite/microphonecheck">Microphone check</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'geo_check' %} active{% endif %}"
-                           href="/cloakingsite/geocheck">Geo check</a>
+                    <li class="nav-item dropdown{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' %} active{% endif %}">
+                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideBehaviour" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Client side - browser behaviour
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="clientSideBehaviour">
+                            <li><a class="dropdown-item{% if nbar == 'simple_captcha' %} active{% endif %}"
+                                   href="/cloakingsite/simplecaptcha">Simple captcha</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'recaptchav2' %} active{% endif %}"
+                                   href="/cloakingsite/recaptchav2">reCAPTCHA v2</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'recaptchav3' %} active{% endif %}"
+                                   href="/cloakingsite/recaptchav3">reCAPTCHA v3</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'alert' %} active{% endif %}"
+                                   href="/cloakingsite/alert">alert</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'referrercheck' %} active{% endif %}"
-                           href="/cloakingsite/referercheck">Referrer check</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'useragentcheck' %} active{% endif %}"
-                           href="/cloakingsite/useragentcheck">User-Agent check</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'recaptchav2' %} active{% endif %}"
-                           href="/cloakingsite/recaptchav2">reCAPTCHA v2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'recaptchav3' %} active{% endif %}"
-                           href="/cloakingsite/recaptchav3">reCAPTCHA v3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'fingerprintjs' %} active{% endif %}"
-                           href="/cloakingsite/fingerprintjs">fingerprintjs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'alert' %} active{% endif %}"
-                           href="/cloakingsite/alert">alert</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'microphonecheck' %} active{% endif %}"
-                           href="/cloakingsite/microphonecheck">Microphone check</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'speakerscheck' %} active{% endif %}"
-                           href="/cloakingsite/speakerscheck">Speakers check</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if nbar == 'webcamcheck' %} active{% endif %}"
-                           href="/cloakingsite/webcamcheck">Webcam check</a>
+                    <li class="nav-item dropdown{% if nbar == 'geo_check' or nbar == 'referrercheck' or nbar == 'useragentcheck' %} active{% endif %}">
+                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideBehaviour" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Server side - browser state
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="clientSideState">
+                            <li>
+                                <a class="dropdown-item{% if nbar == 'geo_check' %} active{% endif %}"
+                                   href="/cloakingsite/geocheck">Geo check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'referrercheck' %} active{% endif %}"
+                                   href="/cloakingsite/referercheck">Referrer check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'useragentcheck' %} active{% endif %}"
+                                   href="/cloakingsite/useragentcheck">User-Agent check</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
