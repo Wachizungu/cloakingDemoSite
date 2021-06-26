@@ -222,5 +222,5 @@ def opener_check_initial(request):
 
 
 def opener_check(request):
-    expected_opener = request.scheme + '://' + request.get_host() + '/cloakingsite/openercheckinitial'
+    expected_opener = 'https://' + request.get_host() + '/cloakingsite/openercheckinitial'
     return render(request, 'cloakingSite/opener_check.html', {'expected_opener': expected_opener})
