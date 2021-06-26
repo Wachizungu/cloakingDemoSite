@@ -31,8 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link{% if nbar == 'home' %} active{% endif %}" href="/cloakingsite">Home</a>
                     </li>
-                    <li class="nav-item dropdown{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' %} active{% endif %}">
-                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideState" role="button"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' or nbar == 'immediatebrowserhistory' %} active{% endif %}"
+                           href="#" id="clientSideState" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser state
                         </a>
@@ -49,8 +50,9 @@
                                    href="/cloakingsite/browserhistorycheck">Immediate browser history check</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' %} active{% endif %}">
-                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideBehaviour" role="button"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' %} active{% endif %}"
+                           href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser behaviour
                         </a>
@@ -65,8 +67,9 @@
                                    href="/cloakingsite/alert">alert</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown{% if nbar == 'geo_check' or nbar == 'referrercheck' or nbar == 'useragentcheck' %} active{% endif %}">
-                        <a class="nav-link dropdown-toggle active" href="#" id="clientSideBehaviour" role="button"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle{% if nbar == 'geo_check' or nbar == 'referrercheck' or nbar == 'useragentcheck' %} active{% endif %}"
+                           href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Server side - browser state
                         </a>
