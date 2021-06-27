@@ -172,6 +172,8 @@ def good(request):
 
 
 def bad(request):
+    if settings.EICAR_MODE:
+        return FileResponse(open('cloakingSite/eicar.com', 'rb'))
     return render(request, 'cloakingSite/bad.html')
 
 
