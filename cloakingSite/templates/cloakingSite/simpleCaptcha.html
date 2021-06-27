@@ -11,9 +11,9 @@
         </form>
         </body>
     {% elif captcha_passed %}
-        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
-        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
 
 {% endblock %}

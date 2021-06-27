@@ -1,0 +1,21 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Mousemove check{% endblock %}
+{% block content %}
+    <h1>Mousemove check</h1>
+    <div id="content"><img id="image" src="{% static "images/capybara.jpg" %}" class="img-fluid"
+                           alt="Good image - capybara"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(window).on('load', (function () {
+            setTimeout(function () {
+                $("body").mousemove(function (event) {
+                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                });
+            }, 5000)
+        }));
+    </script>
+{% endblock %}
+
+

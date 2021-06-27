@@ -3,8 +3,7 @@
 {% block title %}Simple captcha{% endblock %}
 {% block content %}
     <h1>ReCAPTCHA v3</h1>
-    <div id="content"></div>
-
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>

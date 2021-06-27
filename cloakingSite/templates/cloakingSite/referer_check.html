@@ -11,9 +11,9 @@
         <p>You didn't have the referer header set.</p>
     {% endif %}
     {% if referrer_check_passed %}
-        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
-        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
 
 {% endblock %}

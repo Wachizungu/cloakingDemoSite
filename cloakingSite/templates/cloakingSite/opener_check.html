@@ -1,16 +1,15 @@
 {% extends "cloakingSite/base.html" %}
+{% load static %}
 {% block title %}Check opener - part 2{% endblock %}
 {% block content %}
     <h1>Check opener - part 2</h1>
-    <div id="content"></div>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script>
         $(window).on('load', (function () {
             if (window.opener !== null && window.opener.location.href == "{{ expected_opener }}")
                 $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-            else
-                $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
         }));
     </script>
 {% endblock %}

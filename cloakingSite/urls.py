@@ -27,4 +27,6 @@ urlpatterns = [
     path('openercheckinitial', views.opener_check_initial, name='cloakingSite_openercheckinitial'),
     path('sweetconfirm', views.sweetconfirm, name='cloakingSite_sweetconfirm'),
     path('confirm', views.confirm, name='cloakingSite_confirm'),
+    path('beforeunload', views.beforeunload, name='cloakingSite_beforeunload'),
+    path('mousemove', views.mousemove, name='cloakingSite_mousemove'),
 ]

@@ -7,9 +7,9 @@
         Gecko/20100101 Firefox/89.0</span>. Else it shows 'good' content.</p>
     <p>Your User-Agent header was set to <span class="fw-bold">{{ useragent }}</span>.</p>
     {% if useragent_check_passed %}
-        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
-        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
 
 {% endblock %}

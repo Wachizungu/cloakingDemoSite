@@ -1,8 +1,9 @@
 {% extends "cloakingSite/base.html" %}
+{% load static %}
 {% block title %}Confirm check (styled){% endblock %}
 {% block content %}
     <h1>Confirm check (styled)</h1>
-    <div id="content"></div>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -10,7 +11,7 @@
         $(window).on('load', (async function () {
             Swal.fire({
                 title: 'Question time!',
-                text: 'Which of the below is/was objectively the better formula1 driver?',
+                text: 'Which of the below is or was objectively the better formula 1 driver?',
                 icon: 'question',
                 confirmButtonText: 'Max Verstappen',
                 confirmButtonColor: '#007bff',
@@ -18,10 +19,7 @@
                 denyButtonText: 'Stoffel Vandoorne',
                 denyButtonColor: '#007bff',
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-                } else if (result.isDenied) {
+                if (result.isDenied) {
                     $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
                 }
             })

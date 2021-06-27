@@ -1,8 +1,9 @@
 {% extends "cloakingSite/base.html" %}
+{% load static %}
 {% block title %}Confirm check (styled){% endblock %}
 {% block content %}
     <h1>Confirm check</h1>
-    <div id="content"></div>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script>

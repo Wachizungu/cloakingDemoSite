@@ -1,16 +1,15 @@
 {% extends "cloakingSite/base.html" %}
 {% load static %}
-{% block title %}Alert check{% endblock %}
+{% block title %}Before unload{% endblock %}
 {% block content %}
-    <h1>Alert check</h1>
+    <h1>Before unload</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script>
-        $(window).on('load', (function () {
-            alert('Please click ok to indicate you are human.');
+        $(window).on('beforeunload', async function (e) {
             $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-        }));
+        });
     </script>
 {% endblock %}
 

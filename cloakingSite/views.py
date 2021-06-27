@@ -234,3 +234,11 @@ def sweetconfirm(request):
 
 def confirm(request):
     return render(request, 'cloakingSite/confirm.html', {'nbar': 'confirm'})
+
+
+def beforeunload(request):
+    return render(request, 'cloakingSite/beforeunload.html', {'nbar': 'beforeunload'})
+
+
+def mousemove(request):
+    return render(request, 'cloakingSite/mousemove.html', {'nbar': 'mousemove'})

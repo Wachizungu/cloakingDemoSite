@@ -3,13 +3,13 @@
 {% block title %}Geo check{% endblock %}
 {% block content %}
     <h1>Geo check</h1>
-    <p>This page loads 'bad' content if your IP is originating from BE. Else it shows 'good' content. Your IP was flagged as being from {{ country_code }}.</p>
+    <p>This page loads 'bad' content if your IP is originating from BE. Else it shows 'good' content. Your IP was
+        flagged as being from {{ country_code }}.</p>
     {% if geo_check_passed %}
-        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
-        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Responsive image">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
-
 {% endblock %}
 
 

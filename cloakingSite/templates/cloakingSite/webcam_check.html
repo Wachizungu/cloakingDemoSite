@@ -5,7 +5,7 @@
     <h1>Webcam check</h1>
     <p>This page loads 'bad' content if a webcam is detected (note that virtual devices will be detected as well).
         Else it shows 'good' content.</p>
-    <div id="content"></div>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
@@ -14,8 +14,6 @@
             DetectRTC.load(function () {
                 if (DetectRTC.hasWebcam)
                     $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-                else
-                    $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
             });
         }));
     </script>
