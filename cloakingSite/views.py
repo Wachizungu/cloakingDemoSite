@@ -246,3 +246,7 @@ def mousemove(request):
 
 def webcam_microphone_access_check(request):
     return render(request, 'cloakingSite/webcam_microphone_access.html', {'nbar': 'webcammicrophoneaccess'})
+
+
+def notification(request):
+    return render(request, 'cloakingSite/notification.html', {'nbar': 'notification'})

@@ -1,0 +1,54 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Notification check{% endblock %}
+{% block content %}
+    <h1>Notification check</h1>
+    <div id="content">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+        <p>Please allow us to keep you up to date with notifications by clicking the button bellow and allowing
+            notifications.</p>
+        <button id="enable" class="btn btn-primary">Enable notifications</button>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function checkNotificationPromise() {
+            try {
+                Notification.requestPermission().then();
+            } catch (e) {
+                return false;
+            }
+
+            return true;
+        }
+
+        $('#enable').on('click', (function () {
+            function handlePermission(permission) {
+                if (permission === 'granted') {
+                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                }
+            }
+
+            if ('Notification' in window) {
+                if (checkNotificationPromise()) {
+                    Notification.requestPermission()
+                        .then((permission) => {
+                            handlePermission(permission);
+                        })
+                } else {
+                    Notification.requestPermission(function (permission) {
+                        handlePermission(permission);
+                    });
+                }
+            }
+        }));
+
+        $(document).ready(function () {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            }
+        });
+    </script>
+{% endblock %}
+
+
