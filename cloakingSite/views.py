@@ -242,3 +242,7 @@ def beforeunload(request):
 
 def mousemove(request):
     return render(request, 'cloakingSite/mousemove.html', {'nbar': 'mousemove'})
+
+
+def webcam_microphone_access_check(request):
+    return render(request, 'cloakingSite/webcam_microphone_access.html', {'nbar': 'webcammicrophoneaccess'})

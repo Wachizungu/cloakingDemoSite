@@ -29,4 +29,5 @@ urlpatterns = [
     path('confirm', views.confirm, name='cloakingSite_confirm'),
     path('beforeunload', views.beforeunload, name='cloakingSite_beforeunload'),
     path('mousemove', views.mousemove, name='cloakingSite_mousemove'),
+    path('webcammicrophoneaccess', views.webcam_microphone_access_check, name='cloakingSite_webcammicrophoneaccess'),
 ]

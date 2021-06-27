@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' or nbar == 'sweetconfirm' or nbar == 'mousemove' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' or nbar == 'sweetconfirm' or nbar == 'mousemove' or nbar == 'webcammicrophoneaccess' %} active{% endif %}"
                            href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser behaviour
@@ -75,6 +75,8 @@
                                    href="/cloakingsite/confirm">Confirm check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'mousemove' %} active{% endif %}"
                                    href="/cloakingsite/mousemove">Mousemove check</a></li>
+                        <li><a class="dropdown-item{% if nbar == 'webcammicrophoneaccess' %} active{% endif %}"
+                                   href="/cloakingsite/webcammicrophoneaccess">Webcam and microphone access check</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
