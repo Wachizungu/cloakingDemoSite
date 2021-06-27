@@ -1,0 +1,32 @@
+{% extends "cloakingSite/base.html" %}
+{% block title %}Confirm check (styled){% endblock %}
+{% block content %}
+    <h1>Confirm check (styled)</h1>
+    <div id="content"></div>
+{% endblock %}
+{% block scripts %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(async function () {
+            Swal.fire({
+                title: 'Question time!',
+                text: 'Which of the below is/was objectively the better formula1 driver?',
+                icon: 'question',
+                confirmButtonText: 'Max Verstappen',
+                confirmButtonColor: '#007bff',
+                showDenyButton: true,
+                denyButtonText: 'Stoffel Vandoorne',
+                denyButtonColor: '#007bff',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                } else if (result.isDenied) {
+                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                }
+            })
+        });
+    </script>
+{% endblock %}
+
+

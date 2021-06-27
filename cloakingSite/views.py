@@ -224,3 +224,7 @@ def opener_check_initial(request):
 def opener_check(request):
     expected_opener = settings.HTTP_SCHEME + '://' + request.get_host() + '/cloakingsite/openercheckinitial'
     return render(request, 'cloakingSite/opener_check.html', {'expected_opener': expected_opener})
+
+
+def sweetconfirm(request):
+    return render(request, 'cloakingSite/sweetconfirm.html', {'nbar': 'sweetconfirm'})

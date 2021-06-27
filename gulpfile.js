@@ -7,11 +7,15 @@ function javascript(cb) {
         .pipe(dest('./static/js/'));
     src('./bower_components/detectrtc/DetectRTC.min.js')
         .pipe(dest('./static/js/'));
+    src('./bower_components/sweetalert2/src/sweetalert2.js')
+        .pipe(dest('./static/js/'));
     cb();
 }
 
 function css(cb) {
     src('./bower_components/bootstrap/dist/css/bootstrap.min.css')
+        .pipe(dest('./static/css/'));
+    src('./bower_components/sweetalert2/src/sweetalert2.css')
         .pipe(dest('./static/css/'));
     cb();
 }

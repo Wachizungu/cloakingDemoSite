@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' or nbar == 'sweetconfirm' %} active{% endif %}"
                            href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser behaviour
@@ -69,6 +69,8 @@
                                    href="/cloakingsite/recaptchav3">reCAPTCHA v3</a></li>
                             <li><a class="dropdown-item{% if nbar == 'alert' %} active{% endif %}"
                                    href="/cloakingsite/alert">alert</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'sweetconfirm' %} active{% endif %}"
+                                   href="/cloakingsite/sweetconfirm">Confirm check (styled)</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
