@@ -7,7 +7,7 @@
 {% block scripts %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(async function () {
+        $(window).on('load', (async function () {
             Swal.fire({
                 title: 'Question time!',
                 text: 'Which of the below is/was objectively the better formula1 driver?',
@@ -25,7 +25,7 @@
                     $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
                 }
             })
-        });
+        }));
     </script>
 {% endblock %}
 

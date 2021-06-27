@@ -17,7 +17,6 @@
                 .then(result => {
                     // This is the visitor identifier:
                     const visitorId = result.visitorId
-                    console.log(visitorId)
                     $('#content').load('fingerprintjscontent', {hash: visitorId, csrfmiddlewaretoken: "{{ csrf_token }}"});
                 })
         }

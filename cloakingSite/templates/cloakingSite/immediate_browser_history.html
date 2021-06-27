@@ -6,12 +6,12 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        $(document).ready(function () {
+        $(window).on('load', (function () {
             if(history.length > 2)
                 $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
             else
                 $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-        });
+        }));
     </script>
 {% endblock %}
 

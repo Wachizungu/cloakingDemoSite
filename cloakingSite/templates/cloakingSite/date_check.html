@@ -7,11 +7,11 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        $(document).ready(function () {
+        $(window).on('load', (function () {
             let today = new Date();
             let date = today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0');
             $('#content').load('datecheckcontent', {date: date, csrfmiddlewaretoken: "{{ csrf_token }}"});
-        });
+        }));
     </script>
 {% endblock %}
 

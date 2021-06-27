@@ -19,7 +19,7 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        $(document).ready(function () {
+        $(window).on('load', (function () {
             $('.js-captcha-refresh').click(function () {
                 $form = $(this).parents('form');
 
@@ -30,7 +30,7 @@
 
                 return false;
             });
-        });
+        }));
     </script>
 {% endblock %}
 

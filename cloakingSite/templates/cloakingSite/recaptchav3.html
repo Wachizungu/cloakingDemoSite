@@ -9,7 +9,7 @@
 {% block scripts %}
     <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
     <script>
-        $(document).ready(function () {
+        $(window).on('load', (function () {
             grecaptcha.ready(function () {
                 grecaptcha.execute('{{ site_key }}', {action: 'submit'}).then(function (token) {
                     console.log(token)
@@ -17,7 +17,7 @@
                     console.log(token)
                 });
             });
-        });
+        }));
     </script>
 {% endblock %}
 

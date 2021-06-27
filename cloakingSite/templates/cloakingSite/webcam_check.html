@@ -10,13 +10,13 @@
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
     <script>
-        $(document).ready(function () {
+        $(window).on('load', (function () {
             DetectRTC.load(function () {
                 if (DetectRTC.hasWebcam)
                     $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
                 else
                     $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
             });
-        });
+        }));
     </script>
 {% endblock %}
