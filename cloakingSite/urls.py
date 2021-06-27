@@ -26,4 +26,5 @@ urlpatterns = [
     path('openercheck', views.opener_check, name='cloakingSite_openercheck'),
     path('openercheckinitial', views.opener_check_initial, name='cloakingSite_openercheckinitial'),
     path('sweetconfirm', views.sweetconfirm, name='cloakingSite_sweetconfirm'),
+    path('confirm', views.confirm, name='cloakingSite_confirm'),
 ]

@@ -230,3 +230,7 @@ def opener_check(request):
 
 def sweetconfirm(request):
     return render(request, 'cloakingSite/sweetconfirm.html', {'nbar': 'sweetconfirm'})
+
+
+def confirm(request):
+    return render(request, 'cloakingSite/confirm.html', {'nbar': 'confirm'})
