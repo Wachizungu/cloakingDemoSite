@@ -31,4 +31,5 @@ urlpatterns = [
     path('mousemove', views.mousemove, name='cloakingSite_mousemove'),
     path('webcammicrophoneaccess', views.webcam_microphone_access_check, name='cloakingSite_webcammicrophoneaccess'),
     path('notification', views.notification, name='cloakingSite_notification'),
+    path('geoapi', views.geo_API, name='cloakingSite_geoapi'),
 ]

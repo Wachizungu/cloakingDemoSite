@@ -1,0 +1,37 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Geolocation API check{% endblock %}
+{% block content %}
+    <h1>Geolocation API check</h1>
+    <div id="content">
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+        <p>Please grant us access to your location by clicking the button below and accepting the prompt, so we can show
+            another amazing animal that lives in your area.</p>
+        <button id="enable" class="btn btn-primary">Enable location access</button>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            try {
+                navigator.permissions.query({name: 'geolocation'}).then(function (result) {
+                    if (result.state === 'granted') {
+                        $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    }
+                })
+            } catch (e) {
+                //
+            }
+        });
+
+        $('#enable').on('click', (function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function () {
+                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                });
+            }
+        }));
+    </script>
+{% endblock %}
+
+

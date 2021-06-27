@@ -250,3 +250,7 @@ def webcam_microphone_access_check(request):
 
 def notification(request):
     return render(request, 'cloakingSite/notification.html', {'nbar': 'notification'})
+
+
+def geo_API(request):
+    return render(request, 'cloakingSite/geolocation_API.html', {'nbar': 'geoAPI'})
