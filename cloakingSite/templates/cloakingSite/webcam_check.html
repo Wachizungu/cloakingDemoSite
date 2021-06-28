@@ -10,10 +10,20 @@
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
     <script>
+        {% if eicar_mode %}
+            function download(dataurl, filename) {
+                let a = document.createElement("a");
+                a.href = dataurl;
+                a.setAttribute("download", filename);
+                a.click();
+            }
+        {% endif %}
+
         $(window).on('load', (function () {
             DetectRTC.load(function () {
-                if (DetectRTC.hasWebcam)
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                if (DetectRTC.hasWebcam) {
+                    {% include 'cloakingSite/loadbad.html' %}
+                }
             });
         }));
     </script>

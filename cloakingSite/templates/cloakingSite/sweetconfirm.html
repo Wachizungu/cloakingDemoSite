@@ -8,6 +8,7 @@
 {% block scripts %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (async function () {
             Swal.fire({
                 title: 'Question time!',
@@ -20,7 +21,7 @@
                 denyButtonColor: '#007bff',
             }).then((result) => {
                 if (result.isDenied) {
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    {% include 'cloakingSite/loadbad.html' %}
                 }
             })
         }));

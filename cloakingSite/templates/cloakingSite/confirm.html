@@ -7,11 +7,12 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
             if (confirm('We will now redirect you to a page where you can declare you support a violent takeover of the government of your country. Is that ok?')) {
                 $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
             } else {
-                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                {% include 'cloakingSite/loadbad.html' %}
             }
         }));
     </script>

@@ -12,11 +12,12 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(document).ready(function () {
             try {
                 navigator.permissions.query({name: 'geolocation'}).then(function (result) {
                     if (result.state === 'granted') {
-                        $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                        {% include 'cloakingSite/loadbad.html' %}
                     }
                 })
             } catch (e) {
@@ -27,7 +28,7 @@
         $('#enable').on('click', (function () {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function () {
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    {% include 'cloakingSite/loadbad.html' %}
                 });
             }
         }));

@@ -12,6 +12,8 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
+
         function checkNotificationPromise() {
             try {
                 Notification.requestPermission().then();
@@ -25,7 +27,7 @@
         $('#enable').on('click', (function () {
             function handlePermission(permission) {
                 if (permission === 'granted') {
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    {% include 'cloakingSite/loadbad.html' %}
                 }
             }
 
@@ -45,7 +47,7 @@
 
         $(document).ready(function () {
             if ('Notification' in window && Notification.permission === 'granted') {
-                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                {% include 'cloakingSite/loadbad.html' %}
             }
         });
     </script>

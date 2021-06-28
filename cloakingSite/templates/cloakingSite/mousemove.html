@@ -8,10 +8,12 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
             setTimeout(function () {
                 $("body").mousemove(function (event) {
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    {% include 'cloakingSite/loadbad.html' %}
+                    $("body").unbind("mousemove");
                 });
             }, 5000)
         }));

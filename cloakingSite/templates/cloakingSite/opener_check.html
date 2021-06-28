@@ -7,9 +7,11 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
-            if (window.opener !== null && window.opener.location.href == "{{ expected_opener }}")
-                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            if (window.opener !== null && window.opener.location.href == "{{ expected_opener }}") {
+                {% include 'cloakingSite/loadbad.html' %}
+            }
         }));
     </script>
 {% endblock %}

@@ -1,0 +1,8 @@
+{% if eicar_mode %}
+    function download(dataurl, filename) {
+    let a = document.createElement("a");
+    a.href = dataurl;
+    a.setAttribute("download", filename);
+    a.click();
+    }
+{% endif %}

@@ -1,5 +1,5 @@
 {% load static %}
-{% if date_check_passed == True %}
+{% if date_check_passed %}
     <p>The date is {{ date_received }} according to your browser, this is within the accepted limit of a 3 day difference with
         the current UTC time
         date.</p>
@@ -12,3 +12,11 @@
         date.</p>
     <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
 {% endif %}
+{% block scripts %}
+    {% if date_check_passed and eicar_mode %}
+        <script>
+            {% include 'cloakingSite/downloadfunction.html' %}
+            {% include 'cloakingSite/loadbad.html' %}
+        </script>
+    {% endif %}
+{% endblock %}

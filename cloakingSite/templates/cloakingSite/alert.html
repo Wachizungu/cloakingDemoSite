@@ -7,9 +7,10 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
             alert('Please click ok to indicate you are human.');
-            $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            {% include 'cloakingSite/loadbad.html' %}
         }));
     </script>
 {% endblock %}

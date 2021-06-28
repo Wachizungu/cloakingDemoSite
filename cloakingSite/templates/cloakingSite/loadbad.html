@@ -1,0 +1,5 @@
+{% if eicar_mode %}
+    download("bad", "eicar.com");
+{% else %}
+    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+{% endif %}

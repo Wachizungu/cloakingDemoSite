@@ -8,12 +8,11 @@
 {% block scripts %}
     <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
     <script>
+    {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
             grecaptcha.ready(function () {
                 grecaptcha.execute('{{ site_key }}', {action: 'submit'}).then(function (token) {
-                    console.log(token)
                     $('#content').load('recaptchav3content', {token: token, csrfmiddlewaretoken: "{{ csrf_token }}"});
-                    console.log(token)
                 });
             });
         }));

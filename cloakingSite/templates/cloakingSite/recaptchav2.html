@@ -10,14 +10,26 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     {% elif captcha_passed %}
-        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
+        <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+        </div>
+        {% include 'cloakingSite/loadbad.html' %}
     {% else %}
-        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+        <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+        </div>
     {% endif %}
 
 {% endblock %}
 {% block scripts %}
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {% if captcha_passed is None %}
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {% elif captcha_passed %}
+        <script>
+            {% include 'cloakingSite/downloadfunction.html' %}
+            $(window).on('load', (function () {
+                {% include 'cloakingSite/loadbad.html' %}
+            }));
+        </script>
+    {% endif %}
 {% endblock %}
 
 

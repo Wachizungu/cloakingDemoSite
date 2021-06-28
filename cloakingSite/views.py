@@ -116,7 +116,8 @@ def referrer_check(request):
 
 
 def fingerprintjs(request):
-    return render(request, 'cloakingSite/fingerprintjs.html', {'nbar': 'fingerprintjs'})
+    return render(request, 'cloakingSite/fingerprintjs.html',
+                  {'nbar': 'fingerprintjs', 'eicar_mode': settings.EICAR_MODE})
 
 
 def fingerprintjscontent(request):
@@ -145,7 +146,8 @@ def fingerprintjscontent(request):
         fingerprint.save()
         visits = fingerprint.visits
 
-    return render(request, 'cloakingSite/fingerprintjs_content.html', {'visits': visits})
+    return render(request, 'cloakingSite/fingerprintjs_content.html',
+                  {'visits': visits, 'eicar_mode': settings.EICAR_MODE})
 
 
 def resetfingerprintjs(request):
@@ -178,23 +180,26 @@ def bad(request):
 
 
 def alert(request):
-    return render(request, 'cloakingSite/alert.html', {'nbar': 'alert'})
+    return render(request, 'cloakingSite/alert.html', {'nbar': 'alert', 'eicar_mode': settings.EICAR_MODE})
 
 
 def webcam_check(request):
-    return render(request, 'cloakingSite/webcam_check.html', {'nbar': 'webcamcheck'})
+    return render(request, 'cloakingSite/webcam_check.html', {'nbar': 'webcamcheck', 'eicar_mode': settings.EICAR_MODE})
 
 
 def microphone_check(request):
-    return render(request, 'cloakingSite/microphone_check.html', {'nbar': 'microphonecheck'})
+    return render(request, 'cloakingSite/microphone_check.html',
+                  {'nbar': 'microphonecheck', 'eicar_mode': settings.EICAR_MODE})
 
 
 def speakers_check(request):
-    return render(request, 'cloakingSite/speakers_check.html', {'nbar': 'speakerscheck'})
+    return render(request, 'cloakingSite/speakers_check.html',
+                  {'nbar': 'speakerscheck', 'eicar_mode': settings.EICAR_MODE})
 
 
 def immediate_browser_history_check(request):
-    return render(request, 'cloakingSite/immediate_browser_history.html', {'nbar': 'immediatebrowserhistory'})
+    return render(request, 'cloakingSite/immediate_browser_history.html',
+                  {'nbar': 'immediatebrowserhistory', 'eicar_mode': settings.EICAR_MODE})
 
 
 def date_check(request):
@@ -215,7 +220,8 @@ def date_check_content(request):
             date_check_passed = False
 
     return render(request, 'cloakingSite/date_check_content.html',
-                  {'date_check_passed': date_check_passed, 'date_received': date_received})
+                  {'date_check_passed': date_check_passed, 'date_received': date_received,
+                   'eicar_mode': settings.EICAR_MODE})
 
 
 def opener_check_initial(request):
@@ -225,15 +231,16 @@ def opener_check_initial(request):
 
 def opener_check(request):
     expected_opener = settings.HTTP_SCHEME + '://' + request.get_host() + '/cloakingsite/openercheckinitial'
-    return render(request, 'cloakingSite/opener_check.html', {'expected_opener': expected_opener})
+    return render(request, 'cloakingSite/opener_check.html',
+                  {'expected_opener': expected_opener, 'eicar_mode': settings.EICAR_MODE})
 
 
 def sweetconfirm(request):
-    return render(request, 'cloakingSite/sweetconfirm.html', {'nbar': 'sweetconfirm'})
+    return render(request, 'cloakingSite/sweetconfirm.html', {'nbar': 'sweetconfirm', 'eicar_mode': settings.EICAR_MODE})
 
 
 def confirm(request):
-    return render(request, 'cloakingSite/confirm.html', {'nbar': 'confirm'})
+    return render(request, 'cloakingSite/confirm.html', {'nbar': 'confirm', 'eicar_mode': settings.EICAR_MODE})
 
 
 def beforeunload(request):
@@ -241,16 +248,16 @@ def beforeunload(request):
 
 
 def mousemove(request):
-    return render(request, 'cloakingSite/mousemove.html', {'nbar': 'mousemove'})
+    return render(request, 'cloakingSite/mousemove.html', {'nbar': 'mousemove', 'eicar_mode': settings.EICAR_MODE})
 
 
 def webcam_microphone_access_check(request):
-    return render(request, 'cloakingSite/webcam_microphone_access.html', {'nbar': 'webcammicrophoneaccess'})
+    return render(request, 'cloakingSite/webcam_microphone_access.html', {'nbar': 'webcammicrophoneaccess', 'eicar_mode': settings.EICAR_MODE})
 
 
 def notification(request):
-    return render(request, 'cloakingSite/notification.html', {'nbar': 'notification'})
+    return render(request, 'cloakingSite/notification.html', {'nbar': 'notification', 'eicar_mode': settings.EICAR_MODE})
 
 
 def geo_API(request):
-    return render(request, 'cloakingSite/geolocation_API.html', {'nbar': 'geoAPI'})
+    return render(request, 'cloakingSite/geolocation_API.html', {'nbar': 'geoAPI', 'eicar_mode': settings.EICAR_MODE})

@@ -7,9 +7,11 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
         $(window).on('load', (function () {
-            if(history.length > 2)
-                $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            if (history.length > 2) {
+                {% include 'cloakingSite/loadbad.html' %}
+            }
         }));
     </script>
 {% endblock %}

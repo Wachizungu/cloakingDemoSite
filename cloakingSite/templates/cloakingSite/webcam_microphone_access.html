@@ -2,25 +2,25 @@
 {% load static %}
 {% block title %}Webcam and microphone access check{% endblock %}
 {% block content %}
-    <h1>Webcam and microphone access check dada</h1>
+    <h1>Webcam and microphone access check</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
 {% endblock %}
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
-    <script>console.log('tada');
-
-    $(window).on('load', (function () {
-        DetectRTC.load(async function () {
-            if (DetectRTC.hasWebcam && DetectRTC.hasMicrophone) {
-                try {
-                    await navigator.mediaDevices.getUserMedia({audio: true, video: true});
-                    $('#content').load('bad', {csrfmiddlewaretoken: "{{ csrf_token }}"});
-                } catch (err) {
-                    //
+    <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
+        $(window).on('load', (function () {
+            DetectRTC.load(async function () {
+                if (DetectRTC.hasWebcam && DetectRTC.hasMicrophone) {
+                    try {
+                        await navigator.mediaDevices.getUserMedia({audio: true, video: true});
+                        {% include 'cloakingSite/loadbad.html' %}
+                    } catch (err) {
+                        //
+                    }
                 }
-            }
-        });
-    }));
+            });
+        }));
     </script>
 {% endblock %}
 
