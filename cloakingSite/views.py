@@ -8,6 +8,7 @@ import json
 from django.conf import settings
 from cloakingSite.models import Fingerprint
 from datetime import datetime
+from user_agents import parse
 
 
 def home(request):
@@ -158,7 +159,10 @@ def resetfingerprintjs(request):
 def useragent_check(request):
     referrer = None
     useragent = request.META.get('HTTP_USER_AGENT')
-    if useragent == 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0':
+    parsed_useragent = parse(useragent)
+    family = parsed_useragent.browser.family
+    major_version = parsed_useragent.browser.version[0]
+    if family == 'Firefox' and major_version >= 87:
         if settings.EICAR_MODE:
             return FileResponse(open('cloakingSite/eicar.com', 'rb'))
         else:
@@ -166,7 +170,8 @@ def useragent_check(request):
     else:
         useragent_check_passed = False
     return render(request, 'cloakingSite/useragent_check.html',
-                  {'useragent_check_passed': useragent_check_passed, 'useragent': useragent, 'nbar': 'useragentcheck'})
+                  {'useragent_check_passed': useragent_check_passed, 'useragent': useragent, 'family': family,
+                   'major_version': major_version, 'nbar': 'useragentcheck'})
 
 
 def good(request):
@@ -236,7 +241,8 @@ def opener_check(request):
 
 
 def sweetconfirm(request):
-    return render(request, 'cloakingSite/sweetconfirm.html', {'nbar': 'sweetconfirm', 'eicar_mode': settings.EICAR_MODE})
+    return render(request, 'cloakingSite/sweetconfirm.html',
+                  {'nbar': 'sweetconfirm', 'eicar_mode': settings.EICAR_MODE})
 
 
 def confirm(request):
@@ -252,11 +258,13 @@ def mousemove(request):
 
 
 def webcam_microphone_access_check(request):
-    return render(request, 'cloakingSite/webcam_microphone_access.html', {'nbar': 'webcammicrophoneaccess', 'eicar_mode': settings.EICAR_MODE})
+    return render(request, 'cloakingSite/webcam_microphone_access.html',
+                  {'nbar': 'webcammicrophoneaccess', 'eicar_mode': settings.EICAR_MODE})
 
 
 def notification(request):
-    return render(request, 'cloakingSite/notification.html', {'nbar': 'notification', 'eicar_mode': settings.EICAR_MODE})
+    return render(request, 'cloakingSite/notification.html',
+                  {'nbar': 'notification', 'eicar_mode': settings.EICAR_MODE})
 
 
 def geo_API(request):
