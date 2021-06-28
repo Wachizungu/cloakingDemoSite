@@ -1,4 +1,5 @@
 {% extends "cloakingSite/base.html" %}
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>About this site</h1>
@@ -7,4 +8,65 @@
     <p>This site was created by Jeroen Pinoy as part of Master thesis research, in scope of the Computer
         Science graduate programme at the Open University of the Netherlands (Open Universiteit Nederland). The research
         is supervised by assistant professor Dr. Ir. Hugo Jonker.</p>
+    <p>For this demo site, the following images are used as good and bad content.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <figure>
+                    <img src='{% static "images/capybara.jpg" %}' alt='Good image - capybara' class="img-fluid"/>
+                    <figcaption>Good content image</figcaption>
+                </figure>
+            </div>
+            <div class="col">
+                <figure>
+                    <img src='{% static "images/cat-meat-threat.jpg" %}' alt='Threat image - cat looking at meat' class="img-fluid"/>
+                    <figcaption>Threat content image - not bad but used to throw analyst off</figcaption>
+                </figure>
+            </div>
+            <div class="col">
+                <figure>
+                    <img src='{% static "images/danger.jpg" %}' alt='Bad image - danger sign' class="img-fluid"/>
+                    <figcaption>Bad content image</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <h2>What is cloaking?</h2>
+    <p>Website cloaking is a technique that enables websites to deliver different content to different clients, with the
+        goal of hiding particular content from certain clients. Website cloaking is based on client detection, which is
+        achieved via browser fingerprinting. In an attempt to hide their malicious web pages from detection, cyber
+        criminals use cloaking. They use vulnerability detection to only target clients that seem vulnerable. On top of
+        that, they also provide benign content in case they suspect someone or something is trying to detect them.</p>
+    <p>Below we describe four different strategies that can be used to deliver web content. Note that all of the below
+        strategies can be combined with a phased fingerprinting approach. Using such an approach, the different
+        fingerprint checks are done in separate phases. The first server or script might check one fingerprintable
+        attribute and then redirect to another page or server, or deliver another fingerprinting script. This could then
+        check another fingerprintable attribute and do the same thing. The end result is that part of the cloaking stack
+        is cloaked as well, making potential investigations harder.</p>
+    <h2>No cloaking</h2>
+    <p>With no cloaking, the delivered content does not depend on the browser fingerprint. As a result the same content
+        is delivered to all visitors. The client submits a request for a page, the server sends the content without
+        applying any filtering.</p>
+    <img src="{% static "images/home/No-cloaking.png" %}" class="img-fluid"
+         alt="Simple sequence diagram - no cloaking example">
+    <h2>Server-side cloaking</h2>
+    <p>In server-side cloaking, the cloaking logic is entirely on the server. The client submits a request to the
+        server,
+        the server uses some of the details of the request to determine whether it should send specific content or not.
+        Examples of this type of cloaking are the blocking of certain IP addresses or User-Agent strings from seeing the
+        cloaked content.</p>
+    <img src="{% static "images/home/Cloaking-server-side.png" %}" class="img-fluid"
+         alt="Simple sequence diagram - server-side cloaking example">
+    <h2>Client-side cloaking</h2>
+    <p>In client-side cloaking, the cloaking logic is sent to the client and executed inside the browser client, for
+        example by using JavaScript. An example of this is a script that checks if the user visited other pages before
+        the requested one in this browser session (tab) or not, before requesting the cloaked content.</p>
+    <img src="{% static "images/home/Cloaking-client-side.png" %}" class="img-fluid"
+         alt="Simple sequence diagram - client-side cloaking example">
+    <h2>Client-side cloaking with server side validation of results</h2>
+    <p>In this case, client-side technologies such as JavaScript are used to gather certain browser attributes, which
+        are then sent back to the server. The server then uses that data to decide whether it should sent the cloaked
+        content or not.</p>
+    <img src="{% static "images/home/Cloaking-client-side-option2.png" %}" class="img-fluid"
+         alt="Simple sequence diagram - client-side cloaking with server side validation of results example">
 {% endblock %}
