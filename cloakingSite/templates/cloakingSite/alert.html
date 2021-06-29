@@ -4,6 +4,11 @@
 {% block content %}
     <h1>Alert check</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>Triggers an alert and only delivers the malicious content in case the alert is closed.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to close an alert, it will not manage to get the
+        malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     <script>

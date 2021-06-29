@@ -4,20 +4,43 @@
 {% block content %}
     <h1>Fingerprint check using fingerprintjs</h1>
     <div id="content"></div>
+    <div id="explanation">
+        <h2>What does this check do?</h2>
+        <p>Fingerprintjs is an open source browser fingerprinting library developed for fraud prevention purposes. It
+            uses a combination of browser attributes to calculate a visitor ID. This visitor ID can be used to track
+            browsers across several visits. With this check, we first calculate your fingerprintjs visitor ID. This
+            visitor ID is then sent to the server. Depending on the amount of times that ID was seen, different content
+            is loaded. On the first visit, bad content is loaded. On the second visit, threatening looking but otherwise
+            harmless content is loaded. As of the third visit, only good content is returned. You can reset the visit
+            counter by clicking the button at the bottom of this page. Below the button, we display the
+            json version of your fingerprintjs fingerprint.</p>
+        <h2>How does it help an attacker?</h2>
+        <p>It prevents the payload from being triggered twice by a browser with the same fingerprint. This reduces the
+            chance of detection of the payload when re-attacking a browser. It also prevents a security analyst or
+            security tool from using the same browser to try and trigger the payload again.</p>
+        <a class="btn btn-primary" href="resetfingerprintjs">Reset fingerprintjs counters</a>
+        <div class="card mt-3">
+            <pre id="fingerprint_content"></pre>
+        </div>
+    </div>
 {% endblock %}
 {% block scripts %}
     <script>
         function initFingerprintJS() {
             // Initialize an agent at application startup.
-            const fpPromise = FingerprintJS.load()
+            const fpPromise = FingerprintJS.load();
 
             // Get the visitor identifier when you need it.
             fpPromise
                 .then(fp => fp.get())
                 .then(result => {
                     // This is the visitor identifier:
-                    const visitorId = result.visitorId
-                    $('#content').load('fingerprintjscontent', {hash: visitorId, csrfmiddlewaretoken: "{{ csrf_token }}"});
+                    $('#fingerprint_content').text(JSON.stringify(result, undefined, 2));
+                    const visitorId = result.visitorId;
+                    $('#content').load('fingerprintjscontent', {
+                        hash: visitorId,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    });
                 })
         }
     </script>

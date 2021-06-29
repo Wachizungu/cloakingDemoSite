@@ -4,6 +4,10 @@
 {% block content %}
     <h1>Before unload</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>Only delivers the malicious content in case the beforeunload event is triggered.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>It looks like this can't really be used anymore maliciously in more recent browsers.</p>
 {% endblock %}
 {% block scripts %}
     <script>

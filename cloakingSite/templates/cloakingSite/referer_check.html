@@ -3,8 +3,6 @@
 {% block title %}Referrer check{% endblock %}
 {% block content %}
     <h1>Referrer check</h1>
-    <p>This page loads 'bad' content if the referer header is <span class="fw-bold">https://www.google.com/</span>, indicating you reached this
-        site via google. Else it shows 'good' content.</p>
     {% if referrer_check_passed == True or referrer_check_passed == False %}
         <p>Your referer header was set to <span class="fw-bold">{{ referrer }}</span>.</p>
     {% elif referrer_check_passed == None %}
@@ -15,7 +13,14 @@
     {% else %}
         <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
-
+    <h2>What does this check do?</h2>
+    <p>This page loads 'bad' content if the referer header is <span class="fw-bold">https://www.google.com/</span>,
+        indicating you reached this
+        site via google. Else it shows 'good' content.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the attacker expects the potential victim to reach this page via a specific path, for example clicking a
+        link in google search results, this check thwarts potential analysis if the page is accessed directly
+        instead (unless the header is set specifically by the tool).</p>
 {% endblock %}
 
 

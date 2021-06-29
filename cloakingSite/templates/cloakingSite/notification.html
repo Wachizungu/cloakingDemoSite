@@ -9,6 +9,11 @@
             notifications.</p>
         <button id="enable" class="btn btn-primary">Enable notifications</button>
     </div>
+    <h2>What does this check do?</h2>
+    <p>This page triggers a request to allow notifications and only loads the malicious content in case the request is accepted or has been accepted in the past.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to handle the notification prompt or does not allow notifications, it will not manage to get the
+        malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     <script>

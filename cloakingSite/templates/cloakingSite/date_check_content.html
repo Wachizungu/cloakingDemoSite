@@ -1,15 +1,13 @@
 {% load static %}
 {% if date_check_passed %}
     <p>The date is {{ date_received }} according to your browser, this is within the accepted limit of a 3 day difference with
-        the current UTC time
-        date.</p>
+        the current server time.</p>
     <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
 
 {% elif date_check_passed == None %}
     <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
 {% else %}
-    <p>The date is {{ date_received }} according to your browser, there is at least a 3 day difference with the current UTC time
-        date.</p>
+    <p>The date is {{ date_received }} according to your browser, there is at least a 3 day difference with the current server time.</p>
     <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
 {% endif %}
 {% block scripts %}

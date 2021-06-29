@@ -4,6 +4,13 @@
 {% block content %}
     <h1>Immediate browser history check</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads bad content if the history.length indicates there are at least 3 pages in its history.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>Depending on the setup, an attacker can assume that a normal target would never end up on the malicious web page
+        directly. Bots on the other hand might open a session for each url, in which case the session history will be
+        smaller than 3. As such it is possible this check could thwart automated analysis or even analysis from human
+        analyst who browses to the malicious page directly.</p>
 {% endblock %}
 {% block scripts %}
     <script>

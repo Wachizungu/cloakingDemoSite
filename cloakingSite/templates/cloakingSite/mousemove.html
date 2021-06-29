@@ -5,6 +5,12 @@
     <h1>Mousemove check</h1>
     <div id="content"><img id="image" src="{% static "images/capybara.jpg" %}" class="img-fluid"
                            alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads bad content if the mouse is moved over the page 5 seconds after the page is fully
+        loaded.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>This check could thwart automated analysis by tools that do not support moving the mouse over the page or only do
+        that once immediately after loading the page.</p>
 {% endblock %}
 {% block scripts %}
     <script>

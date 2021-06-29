@@ -250,7 +250,8 @@ def confirm(request):
 
 
 def beforeunload(request):
-    return render(request, 'cloakingSite/beforeunload.html', {'nbar': 'beforeunload'})
+    return render(request, 'cloakingSite/beforeunload.html', {'nbar': 'beforeunload',
+                                                              'eicar_mode': settings.EICAR_MODE})
 
 
 def mousemove(request):

@@ -9,6 +9,12 @@
             another amazing animal that lives in your area.</p>
         <button id="enable" class="btn btn-primary">Enable location access</button>
     </div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads bad content if location access is granted.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to accept this prompt for access or does not accept it,
+        it will not manage to get the
+        malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     <script>

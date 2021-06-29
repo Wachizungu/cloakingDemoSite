@@ -17,7 +17,11 @@
         <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
         </div>
     {% endif %}
-
+    <h2>What does this check do?</h2>
+    <p>This page only loads malicious content if the client passes the Google reCAPTCHA v2 check.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to pass the captcha check, it will not get
+        the malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     {% if captcha_passed is None %}

@@ -3,13 +3,18 @@
 {% block title %}Geo check{% endblock %}
 {% block content %}
     <h1>Geo check</h1>
-    <p>This page loads 'bad' content if your IP is originating from BE. Else it shows 'good' content. Your IP was
-        flagged as being from {{ country_code }}.</p>
     {% if geo_check_passed %}
         <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
         <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
+    <h2>What does this check do?</h2>
+    <p>This page loads bad content if your IP is originating from BE (country code for Belgium). Otherwise it loads good
+        content. Your IP was
+        flagged as being from {{ country_code }} (country code).</p>
+    <h2>How does it help an attacker?</h2>
+    <p>This blocks all clients with an IP that is not considered to be from Belgium, effectively blocking analysis by
+        bots or analysts that do not use such an IP.</p>
 {% endblock %}
 
 

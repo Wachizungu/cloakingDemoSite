@@ -3,9 +3,14 @@
 {% block title %}Microphone check{% endblock %}
 {% block content %}
     <h1>Microphone check</h1>
-    <p>This page loads 'bad' content if a microphone is detected (note that virtual devices will be detected as well).
-        Else it shows 'good' content.</p>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads bad content if navigator.mediaDevices.enumerateDevices indicates the system has a connected
+        microphone.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the attacker targets systems for which it is safe to assume they have a microphone (such as laptops), this
+        check could be used to potentially weed out other clients such as bots that might not indicate they have a
+        connected microphone.</p>
 {% endblock %}
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
@@ -23,7 +28,7 @@
             DetectRTC.load(function () {
                 if (DetectRTC.hasMicrophone)
                     {% include 'cloakingSite/loadbad.html' %}
-            });
+                    });
         }));
     </script>
 {% endblock %}

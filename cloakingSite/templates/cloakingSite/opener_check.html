@@ -4,6 +4,11 @@
 {% block content %}
     <h1>Check opener - part 2</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads malicious content if the window 'opener' was the initial page, 'openercheckinitial'.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the attacker expects the potential victim to reach this page via a specific path, for example clicking a
+        button like the one on the other page, this check thwarts potential analysis if the page is accessed directly instead.</p>
 {% endblock %}
 {% block scripts %}
     <script>

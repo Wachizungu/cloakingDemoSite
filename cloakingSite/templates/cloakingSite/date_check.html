@@ -4,6 +4,13 @@
 {% block content %}
     <h1>Date check</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>Checks that the difference in time between the server and client is not larger than 3 days. If it is, the
+        malicious content is not delivered.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>Assuming user workstations or the target systems are supposed to have their time set fairly correctly, this could
+        filter out traffic from virtual machines that are spun up for crawling without having proper time
+        synchronisation.</p>
 {% endblock %}
 {% block scripts %}
     <script>

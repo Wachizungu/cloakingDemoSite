@@ -15,7 +15,11 @@
     {% else %}
         <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
-
+    <h2>What does this check do?</h2>
+    <p>This page only loads malicious content if the captcha is submitted with the correct value.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to solve and submit the captcha check, it will not get
+        the malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     <script>

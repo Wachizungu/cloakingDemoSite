@@ -4,6 +4,13 @@
 {% block content %}
     <h1>Webcam and microphone access check</h1>
     <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page only loads malicious content if navigator.mediaDevices.enumerateDevices indicates the system has a
+        connected webcam and microphone, and the browser provides access to them.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have a connected webcam or microphone or is not capable of granting access
+        to them, it will not manage to get the
+        malicious content. This potentially thwarts automatic analysis.</p>
 {% endblock %}
 {% block scripts %}
     <script src="{% static "js/DetectRTC.min.js" %}"></script>
