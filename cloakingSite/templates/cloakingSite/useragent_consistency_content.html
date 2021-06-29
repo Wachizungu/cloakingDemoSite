@@ -1,0 +1,20 @@
+{% load static %}
+
+{% if consistent is not None %}
+    <p>According to the User-Agent header you sent with your request, your user-agent is {{ http_user_agent }}, navigator.userAgent reports {{ navigator_user_agent }}.</p>
+{% endif %}
+{% if consistent %}
+    <p>Your User-Agent is consistent, so you get the bad content!</p>
+    <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
+{% else %}
+    <p>Your User-Agent is not consistent, so you get the good content!</p>
+    <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+{% endif %}
+{% block scripts %}
+    {% if consistent and eicar_mode %}
+        <script>
+            {% include 'cloakingSite/downloadfunction.html' %}
+            {% include 'cloakingSite/loadbad.html' %}
+        </script>
+    {% endif %}
+{% endblock %}

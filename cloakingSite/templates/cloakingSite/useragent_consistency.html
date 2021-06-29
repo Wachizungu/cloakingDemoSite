@@ -1,0 +1,25 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Check user-agent consistency{% endblock %}
+{% block content %}
+    <h1>Check user-agent consistency</h1>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>This page loads bad content if the User-Agent header value does not match the navigator.userAgent value.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>Some analysis tools allow you to spoof the User-Agent, if they do not correctly change the value of
+        navigator.userAgent as well, this check would notice that inconsistency and cloak the content. As a result it
+        would thwart the analysis.</p>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(window).on('load', (async function () {
+            $('#content').load('useragentconsistencycontent', {
+                user_agent: navigator.userAgent,
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            });
+        }));
+    </script>
+{% endblock %}
+
+

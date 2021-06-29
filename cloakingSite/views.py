@@ -118,7 +118,7 @@ def referrer_check(request):
 
 def fingerprintjs(request):
     return render(request, 'cloakingSite/fingerprintjs.html',
-                  {'nbar': 'fingerprintjs', 'eicar_mode': settings.EICAR_MODE})
+                  {'nbar': 'fingerprintjs'})
 
 
 def fingerprintjscontent(request):
@@ -270,3 +270,21 @@ def notification(request):
 
 def geo_API(request):
     return render(request, 'cloakingSite/geolocation_API.html', {'nbar': 'geoAPI', 'eicar_mode': settings.EICAR_MODE})
+
+
+def useragent_consistency(request):
+    return render(request, 'cloakingSite/useragent_consistency.html',
+                  {'nbar': 'useragentconsistency'})
+
+
+def useragent_consistencycontent(request):
+    navigator_user_agent = None
+    consistent = None
+    if request.POST:
+        navigator_user_agent = request.POST.get("user_agent")
+        http_user_agent = request.META.get('HTTP_USER_AGENT')
+        consistent = navigator_user_agent == http_user_agent
+
+    return render(request, 'cloakingSite/useragent_consistency_content.html',
+                  {'consistent': consistent, 'navigator_user_agent': navigator_user_agent,
+                   'http_user_agent': http_user_agent, 'eicar_mode': settings.EICAR_MODE})

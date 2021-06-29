@@ -32,7 +32,7 @@
                         <a class="nav-link{% if nbar == 'home' %} active{% endif %}" href="/cloakingsite">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' or nbar == 'immediatebrowserhistory' or nbar == 'datecheck' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'fingerprintjs' or nbar == 'microphonecheck' or nbar == 'speakerscheck' or nbar == 'webcamcheck' or nbar == 'immediatebrowserhistory' or nbar == 'datecheck' or nbar == 'useragentconsistency' %} active{% endif %}"
                            href="#" id="clientSideState" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser state
@@ -52,6 +52,8 @@
                                    href="/cloakingsite/datecheck">Date check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'openercheck' %} active{% endif %}"
                                    href="/cloakingsite/openercheckinitial">Opener check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'useragentconsistency' %} active{% endif %}"
+                                   href="/cloakingsite/useragentconsistency">User-Agent consistency check</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

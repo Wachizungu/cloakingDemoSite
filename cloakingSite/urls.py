@@ -32,4 +32,6 @@ urlpatterns = [
     path('webcammicrophoneaccess', views.webcam_microphone_access_check, name='cloakingSite_webcammicrophoneaccess'),
     path('notification', views.notification, name='cloakingSite_notification'),
     path('geoapi', views.geo_API, name='cloakingSite_geoapi'),
+    path('useragentconsistency', views.useragent_consistency, name='cloakingSite_useragentconsistency'),
+    path('useragentconsistencycontent', views.useragent_consistencycontent, name='cloakingSite_useragentconsistency'),
 ]

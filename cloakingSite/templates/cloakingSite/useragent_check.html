@@ -3,11 +3,16 @@
 {% block title %}User-Agent check{% endblock %}
 {% block content %}
     <h1>User-Agent check</h1>
-    <p>This page loads bad content if the User-Agent header indicates your browser family is <span class="fw-bold">Firefox and the major browser version is at least 87</span>.
-        Otherwise it shows good content.</p>
     <p>Your User-Agent header was set to <span class="fw-bold">{{ useragent }}</span>. The parsed browser family was
         <span class="fw-bold">{{ family }}</span> and major version was <span class="fw-bold">{{ major_version }}</span>.
     </p>
+    <h2>What does this check do?</h2>
+    <p>This page loads bad content if the User-Agent header indicates your browser family is <span class="fw-bold">Firefox and the major browser version is at least 87</span>.
+        Otherwise it shows good content.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>This filters out requests from devices with a different User-Agent than the targeted one. This can make it more
+        difficult for analysts or automated analysis tools to trigger the payload, especially if they don't know which
+        User-Agent strings are targeted.</p>
     {% if useragent_check_passed %}
         <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
     {% else %}
