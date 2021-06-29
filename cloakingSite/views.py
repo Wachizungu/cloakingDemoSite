@@ -9,6 +9,7 @@ from django.conf import settings
 from cloakingSite.models import Fingerprint
 from datetime import datetime
 from user_agents import parse
+import os
 
 
 def home(request):
@@ -24,7 +25,9 @@ def simple_captcha(request):
         # check the input
         if form.is_valid():
             if settings.EICAR_MODE:
-                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+                current_dir = os.path.realpath(os.path.join(
+                    os.getcwd(), os.path.dirname(__file__)))
+                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
             else:
                 captcha_passed = True
         else:
@@ -51,7 +54,9 @@ def geo_check(request):
 
     if country_code == "BE":
         if settings.EICAR_MODE:
-            return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+            current_dir = os.path.realpath(os.path.join(
+                os.getcwd(), os.path.dirname(__file__)))
+            return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
         else:
             geo_check_passed = True
     else:
@@ -70,7 +75,9 @@ def recaptchav2(request):
         if r.status_code == 200:
             captcha_passed = json.loads(r.text)['success']
             if captcha_passed and settings.EICAR_MODE:
-                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+                current_dir = os.path.realpath(os.path.join(
+                    os.getcwd(), os.path.dirname(__file__)))
+                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
     return render(request, 'cloakingSite/recaptchav2.html',
                   {'captcha_passed': captcha_passed, 'site_key': settings.RECAPTCHAV2_SITE_KEY, 'nbar': 'recaptchav2'})
 
@@ -95,7 +102,9 @@ def recaptchav3content(request):
                 if score > 0.5:
                     captcha_passed = True
             if captcha_passed and settings.EICAR_MODE:
-                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+                current_dir = os.path.realpath(os.path.join(
+                    os.getcwd(), os.path.dirname(__file__)))
+                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
     return render(request, 'cloakingSite/recaptchav3_content.html', {'captcha_passed': captcha_passed, 'score': score})
 
 
@@ -105,7 +114,9 @@ def referrer_check(request):
         referrer = request.META['HTTP_REFERER']
         if referrer == 'https://www.google.com/':
             if settings.EICAR_MODE:
-                return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+                current_dir = os.path.realpath(os.path.join(
+                    os.getcwd(), os.path.dirname(__file__)))
+                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
             else:
                 referrer_check_passed = True
         else:
@@ -164,7 +175,9 @@ def useragent_check(request):
     major_version = parsed_useragent.browser.version[0]
     if family == 'Firefox' and major_version >= 87:
         if settings.EICAR_MODE:
-            return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+            current_dir = os.path.realpath(os.path.join(
+                os.getcwd(), os.path.dirname(__file__)))
+            return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
         else:
             useragent_check_passed = True
     else:
@@ -180,7 +193,9 @@ def good(request):
 
 def bad(request):
     if settings.EICAR_MODE:
-        return FileResponse(open('cloakingSite/eicar.com', 'rb'))
+        current_dir = os.path.realpath(os.path.join(
+            os.getcwd(), os.path.dirname(__file__)))
+        return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
     return render(request, 'cloakingSite/bad.html')
 
 
