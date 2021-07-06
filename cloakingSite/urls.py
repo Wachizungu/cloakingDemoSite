@@ -26,7 +26,8 @@ urlpatterns = [
     path('openercheck', views.opener_check, name='cloakingSite_openercheck'),
     path('openercheckinitial', views.opener_check_initial, name='cloakingSite_openercheckinitial'),
     path('sweetconfirm', views.sweetconfirm, name='cloakingSite_sweetconfirm'),
-    path('confirm', views.confirm, name='cloakingSite_confirm'),
+    path('confirmok', views.confirm_ok, name='cloakingSite_confirm_ok'),
+    path('confirmcancel', views.confirm_cancel, name='cloakingSite_confirm_cancel'),
     path('beforeunload', views.beforeunload, name='cloakingSite_beforeunload'),
     path('mousemove', views.mousemove, name='cloakingSite_mousemove'),
     path('webcammicrophoneaccess', views.webcam_microphone_access_check, name='cloakingSite_webcammicrophoneaccess'),
@@ -34,4 +35,6 @@ urlpatterns = [
     path('geoapi', views.geo_API, name='cloakingSite_geoapi'),
     path('useragentconsistency', views.useragent_consistency, name='cloakingSite_useragentconsistency'),
     path('useragentconsistencycontent', views.useragent_consistencycontent, name='cloakingSite_useragentconsistency'),
+    path('cookie', views.cookie_check, name='cloakingSite_cookie'),
+    path('resetcookie', views.cookie_check_reset, name='cloakingSite_cookie_reset'),
 ]

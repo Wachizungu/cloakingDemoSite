@@ -1,0 +1,26 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Confirm check (styled){% endblock %}
+{% block content %}
+    <h1>Confirm check</h1>
+    <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara"></div>
+    <h2>What does this check do?</h2>
+    <p>Triggers a confirm box and only delivers the malicious content in case ok is selected.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>If the client is a bot that does not have the capability to handle a confirm box or defaults to clicking cancel, it will not manage to get the
+        malicious content. This potentially thwarts automatic analysis.</p>
+{% endblock %}
+{% block scripts %}
+    <script>
+        {% include 'cloakingSite/downloadfunction.html' %}
+        $(window).on('load', (function () {
+            if (confirm('We will now redirect you to a page where you can declare you support a violent takeover of the government of your country. Is that ok?')) {
+                {% include 'cloakingSite/loadbad.html' %}
+            } else {
+                $('#content').load('good', {csrfmiddlewaretoken: "{{ csrf_token }}"});
+            }
+        }));
+    </script>
+{% endblock %}
+
+

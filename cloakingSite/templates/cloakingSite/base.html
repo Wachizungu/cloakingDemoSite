@@ -7,14 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="demo site for cloaking techniques">
         <meta name="author" content="Jeroen Pinoy">
-        {#    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">#}
 
         <title>{% block title %}{% endblock %}</title>
 
         <!-- Bootstrap core CSS -->
         <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
+        <!-- Custom styles for this bootstrap CSS template -->
         <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
     </head>
     <body>
@@ -57,7 +56,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' or nbar == 'sweetconfirm' or nbar == 'mousemove' or nbar == 'webcammicrophoneaccess' or nbar == 'notification' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'simple_captcha' or nbar == 'recaptchav2' or nbar == 'recaptchav3' or nbar == 'alert' or nbar == 'sweetconfirm' or nbar == 'confirm_ok' or nbar == 'confirm_cancel' or nbar == 'mousemove' or nbar == 'webcammicrophoneaccess' or nbar == 'notification' %} active{% endif %}"
                            href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Client side - browser behaviour
@@ -73,8 +72,10 @@
                                    href="/cloakingsite/alert">alert</a></li>
                             <li><a class="dropdown-item{% if nbar == 'sweetconfirm' %} active{% endif %}"
                                    href="/cloakingsite/sweetconfirm">Confirm check (styled)</a></li>
-                            <li><a class="dropdown-item{% if nbar == 'confirm' %} active{% endif %}"
-                                   href="/cloakingsite/confirm">Confirm check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'confirm_ok' %} active{% endif %}"
+                                   href="/cloakingsite/confirmok">Confirm check: expect ok</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'confirm_cancel' %} active{% endif %}"
+                                   href="/cloakingsite/confirmcancel">Confirm check: expect cancel</a></li>
                             <li><a class="dropdown-item{% if nbar == 'mousemove' %} active{% endif %}"
                                    href="/cloakingsite/mousemove">Mousemove check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'webcammicrophoneaccess' %} active{% endif %}"
@@ -87,7 +88,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if nbar == 'geo_check' or nbar == 'referrercheck' or nbar == 'useragentcheck' %} active{% endif %}"
+                        <a class="nav-link dropdown-toggle{% if nbar == 'geo_check' or nbar == 'referrercheck' or nbar == 'useragentcheck' or nbar == 'cookie_check' %} active{% endif %}"
                            href="#" id="clientSideBehaviour" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Server side - browser state
@@ -100,6 +101,8 @@
                                    href="/cloakingsite/referercheck">Referrer check</a></li>
                             <li><a class="dropdown-item{% if nbar == 'useragentcheck' %} active{% endif %}"
                                    href="/cloakingsite/useragentcheck">User-Agent check</a></li>
+                            <li><a class="dropdown-item{% if nbar == 'cookie_check' %} active{% endif %}"
+                                   href="/cloakingsite/cookie">Cookie check</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -124,6 +127,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static "js/jquery.min.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <!-- Custom JavaScript -->
     {% block scripts %}{% endblock %}
     </body>
     </html>

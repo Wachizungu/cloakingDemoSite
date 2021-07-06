@@ -1,0 +1,18 @@
+{% extends "cloakingSite/base.html" %}
+{% load static %}
+{% block title %}Cookie check{% endblock %}
+{% block content %}
+    <h1>Cookie check</h1>
+    {% if page_visited_set %}
+        <img src="{% static "images/danger.jpg" %}" class="img-fluid" alt="Bad image - danger">
+    {% else %}
+        <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
+    {% endif %}
+    <h2>What does this check do?</h2>
+    <p>This page only loads bad content if you have a session cookie set which indicates you visited this page before.</p>
+    <h2>How does it help an attacker?</h2>
+    <p>This prevents clients that haven't visited a certain page before from seeing the bad content, potentially thwarting analysis.</p>
+    <a class="btn btn-primary" href="resetcookie">Reset session cookie entry</a>
+{% endblock %}
+
+

@@ -1,8 +1,9 @@
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, HttpResponseBadRequest
 from django.template import loader
 from django.shortcuts import render, redirect
 from .forms import CaptchaTestForm
 from django.contrib.gis.geoip2 import GeoIP2
+from django.core.exceptions import ValidationError
 import requests
 import json
 from django.conf import settings
@@ -10,6 +11,7 @@ from cloakingSite.models import Fingerprint
 from datetime import datetime
 from user_agents import parse
 import os
+import re
 
 
 def home(request):
@@ -41,11 +43,13 @@ def simple_captcha(request):
 
 
 def geo_check(request):
+    # Get remote IP address address
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
+    # Make localhost work as test use case
     if ip == '127.0.0.1':
         country_code = "BE"
     else:
@@ -70,14 +74,21 @@ def recaptchav2(request):
     captcha_passed = None
     if request.POST:
         url = 'https://www.google.com/recaptcha/api/siteverify'
-        payload = {'secret': settings.RECAPTCHAV2_SECRET_KEY, 'response': request.POST.get("g-recaptcha-response")}
-        r = requests.post(url, data=payload)
-        if r.status_code == 200:
-            captcha_passed = json.loads(r.text)['success']
-            if captcha_passed and settings.EICAR_MODE:
-                current_dir = os.path.realpath(os.path.join(
-                    os.getcwd(), os.path.dirname(__file__)))
-                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
+        response = request.POST.get("g-recaptcha-response")
+        # Validate format
+        p = re.compile('[A-Za-z0-9_-]+$')
+        m = p.match(response)
+        if m and len(response) < 2000:
+            payload = {'secret': settings.RECAPTCHAV2_SECRET_KEY, 'response': response}
+            r = requests.post(url, data=payload)
+            if r.status_code == 200:
+                captcha_passed = json.loads(r.text)['success']
+                if captcha_passed and settings.EICAR_MODE:
+                    current_dir = os.path.realpath(os.path.join(
+                        os.getcwd(), os.path.dirname(__file__)))
+                    return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
+        else:
+            return HttpResponseBadRequest()
     return render(request, 'cloakingSite/recaptchav2.html',
                   {'captcha_passed': captcha_passed, 'site_key': settings.RECAPTCHAV2_SITE_KEY, 'nbar': 'recaptchav2'})
 
@@ -92,19 +103,26 @@ def recaptchav3content(request):
     score = None
     if request.POST:
         url = 'https://www.google.com/recaptcha/api/siteverify'
-        payload = {'secret': settings.RECAPTCHAV3_SECRET_KEY, 'response': request.POST.get("token")}
-        r = requests.post(url, data=payload)
-        if r.status_code == 200:
-            response = json.loads(r.text)
-            captcha_success = response['success']
-            if captcha_success:
-                score = response['score']
-                if score > 0.5:
-                    captcha_passed = True
-            if captcha_passed and settings.EICAR_MODE:
-                current_dir = os.path.realpath(os.path.join(
-                    os.getcwd(), os.path.dirname(__file__)))
-                return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
+        response = request.POST.get("token")
+        # Validate format
+        p = re.compile('[A-Za-z0-9_-]+$')
+        m = p.match(response)
+        if m and len(response) < 2000:
+            payload = {'secret': settings.RECAPTCHAV3_SECRET_KEY, 'response': response}
+            r = requests.post(url, data=payload)
+            if r.status_code == 200:
+                response = json.loads(r.text)
+                captcha_success = response['success']
+                if captcha_success:
+                    score = response['score']
+                    if score > 0.5:
+                        captcha_passed = True
+                if captcha_passed and settings.EICAR_MODE:
+                    current_dir = os.path.realpath(os.path.join(
+                        os.getcwd(), os.path.dirname(__file__)))
+                    return FileResponse(open(os.path.join(current_dir, 'files/eicar.com'), 'rb'))
+        else:
+            return HttpResponseBadRequest()
     return render(request, 'cloakingSite/recaptchav3_content.html', {'captcha_passed': captcha_passed, 'score': score})
 
 
@@ -141,22 +159,27 @@ def fingerprintjscontent(request):
             ip = x_forwarded_for.split(',')[0]
         else:
             ip = request.META.get('REMOTE_ADDR')
-
+        # fingerprintjs visitorID
         hash = request.POST.get("hash")
+        # check hash format
+        p = re.compile('[a-z0-9]+$')
+        m = p.match(hash)
+        if m and len(hash) < 50:
+            # Check if fingerprint already exists
+            try:
+                fingerprint = Fingerprint.objects.get(hash=hash)
+            except Fingerprint.DoesNotExist:
+                fingerprint = None
 
-        # Check if fingerprint already exists
-        try:
-            fingerprint = Fingerprint.objects.get(hash=hash)
-        except Fingerprint.DoesNotExist:
-            fingerprint = None
-
-        # If fingerprint already exists increment visits, otherwise save new fingerprint
-        if fingerprint:
-            fingerprint.visits += 1
+            # If fingerprint already exists increment visits, otherwise save new fingerprint
+            if fingerprint:
+                fingerprint.visits += 1
+            else:
+                fingerprint = Fingerprint(hash=hash, ip=ip, visits=1)
+            fingerprint.save()
+            visits = fingerprint.visits
         else:
-            fingerprint = Fingerprint(hash=hash, ip=ip, visits=1)
-        fingerprint.save()
-        visits = fingerprint.visits
+            return HttpResponseBadRequest()
 
     return render(request, 'cloakingSite/fingerprintjs_content.html',
                   {'visits': visits, 'eicar_mode': settings.EICAR_MODE})
@@ -168,7 +191,6 @@ def resetfingerprintjs(request):
 
 
 def useragent_check(request):
-    referrer = None
     useragent = request.META.get('HTTP_USER_AGENT')
     parsed_useragent = parse(useragent)
     family = parsed_useragent.browser.family
@@ -231,13 +253,18 @@ def date_check_content(request):
     if request.POST:
         now = datetime.now()
         date_received = request.POST.get("date")
-        date_received_datetime = datetime.strptime(date_received, '%Y/%m/%d')
-        date_diff = date_received_datetime - now
+        p = re.compile('\d{4}\/\d{2}\/\d{2}$')
+        m = p.match(date_received)
+        if m:
+            date_received_datetime = datetime.strptime(date_received, '%Y/%m/%d')
+            date_diff = date_received_datetime - now
 
-        if abs(date_diff.days) < 3:
-            date_check_passed = True
+            if abs(date_diff.days) < 3:
+                date_check_passed = True
+            else:
+                date_check_passed = False
         else:
-            date_check_passed = False
+            HttpResponseBadRequest()
 
     return render(request, 'cloakingSite/date_check_content.html',
                   {'date_check_passed': date_check_passed, 'date_received': date_received,
@@ -260,8 +287,13 @@ def sweetconfirm(request):
                   {'nbar': 'sweetconfirm', 'eicar_mode': settings.EICAR_MODE})
 
 
-def confirm(request):
-    return render(request, 'cloakingSite/confirm.html', {'nbar': 'confirm', 'eicar_mode': settings.EICAR_MODE})
+def confirm_ok(request):
+    return render(request, 'cloakingSite/confirm_ok.html', {'nbar': 'confirm_ok', 'eicar_mode': settings.EICAR_MODE})
+
+
+def confirm_cancel(request):
+    return render(request, 'cloakingSite/confirm_cancel.html',
+                  {'nbar': 'confirm_cancel', 'eicar_mode': settings.EICAR_MODE})
 
 
 def beforeunload(request):
@@ -303,3 +335,20 @@ def useragent_consistencycontent(request):
     return render(request, 'cloakingSite/useragent_consistency_content.html',
                   {'consistent': consistent, 'navigator_user_agent': navigator_user_agent,
                    'http_user_agent': http_user_agent, 'eicar_mode': settings.EICAR_MODE})
+
+
+def cookie_check(request):
+    page_visited_set = None
+    if 'page_visited' in request.session and request.session['page_visited']:
+        page_visited_set = True
+    else:
+        page_visited_set = False
+        request.session['page_visited'] = True
+    return render(request, 'cloakingSite/cookie_check.html',
+                  {'page_visited_set': page_visited_set, 'nbar': 'cookie_check'})
+
+
+def cookie_check_reset(request):
+    if 'page_visited' in request.session:
+        del request.session['page_visited']
+    return redirect('/cloakingsite/')
