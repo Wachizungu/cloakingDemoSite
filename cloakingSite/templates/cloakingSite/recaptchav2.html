@@ -9,10 +9,6 @@
             <br/>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    {% elif captcha_passed %}
-        <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
-        </div>
-        {% include 'cloakingSite/loadbad.html' %}
     {% else %}
         <div id="content"><img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
         </div>
