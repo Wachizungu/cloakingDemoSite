@@ -55,6 +55,7 @@ def geo_check(request):
         g = GeoIP2()
         country_code = g.country(ip)['country_code']
 
+    blocked_countries = settings.GEO_BLOCKED_COUNTRY_CODES
     # Make localhost work as test use case as well
     if ip == '127.0.0.1' or country_code in settings.GEO_BLOCKED_COUNTRY_CODES:
         if settings.EICAR_MODE:
@@ -67,7 +68,8 @@ def geo_check(request):
         geo_check_passed = False
 
     return render(request, 'cloakingSite/geo_check.html',
-                  {'geo_check_passed': geo_check_passed, 'country_code': country_code, 'nbar': 'geo_check'})
+                  {'geo_check_passed': geo_check_passed, 'country_code': country_code,
+                   'blocked_countries': blocked_countries, 'nbar': 'geo_check'})
 
 
 def recaptchav2(request):

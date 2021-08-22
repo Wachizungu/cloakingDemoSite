@@ -9,11 +9,12 @@
         <img src="{% static "images/capybara.jpg" %}" class="img-fluid" alt="Good image - capybara">
     {% endif %}
     <h2>What does this check do?</h2>
-    <p>This page loads bad content if your IP is originating from BE (country code for Belgium). Otherwise it loads good
+    <p>This page loads bad content if your IP is originating from any of the following country
+        codes: {{ blocked_countries }}. Otherwise it loads good
         content. Your IP was
         flagged as being from {{ country_code }} (country code).</p>
     <h2>How does it help an attacker?</h2>
-    <p>This blocks all clients with an IP that is not considered to be from Belgium, effectively blocking analysis by
+    <p>This blocks all clients with an IP that is not considered to be from the selected country codes, effectively blocking analysis by
         bots or analysts that do not use such an IP.</p>
 {% endblock %}
 
