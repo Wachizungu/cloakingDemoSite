@@ -49,14 +49,14 @@ def geo_check(request):
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
-    # Make localhost work as test use case
-    if ip == '127.0.0.1':
-        country_code = "BE"
-    else:
+
+    # Make localhost work as test use case as well
+    if ip != '127.0.0.1':
         g = GeoIP2()
         country_code = g.country(ip)['country_code']
 
-    if country_code == "BE":
+    # Make localhost work as test use case as well
+    if ip == '127.0.0.1' or country_code in settings.GEO_BLOCKED_COUNTRY_CODES:
         if settings.EICAR_MODE:
             current_dir = os.path.realpath(os.path.join(
                 os.getcwd(), os.path.dirname(__file__)))
