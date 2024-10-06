@@ -54,6 +54,8 @@ def geo_check(request):
     if ip != '127.0.0.1':
         g = GeoIP2()
         country_code = g.country(ip)['country_code']
+    else:
+        country_code = "N/A (localhost)"
 
     blocked_countries = settings.GEO_BLOCKED_COUNTRY_CODES
     # Make localhost work as test use case as well
@@ -274,7 +276,7 @@ def date_check_content(request):
 
 
 def opener_check_initial(request):
-    uri = request.get_raw_uri()
+    uri = request.build_absolute_uri()
     return render(request, 'cloakingSite/opener_check_initial.html', {'nbar': 'openercheck', 'uri': uri})
 
 

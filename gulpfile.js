@@ -3,7 +3,7 @@ const { src, dest, parallel} = require('gulp');
 function javascript(cb) {
     src('./bower_components/jquery/dist/jquery.min.js')
         .pipe(dest('./static/js/'));
-    src('./bower_components/bootstrap/dist/js/bootstrap.min.js')
+    src('./bower_components/bootstrap/dist/js/bootstrap.bundle.min.js')
         .pipe(dest('./static/js/'));
     src('./bower_components/detectrtc/DetectRTC.min.js')
         .pipe(dest('./static/js/'));

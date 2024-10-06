@@ -19,12 +19,15 @@
         $(window).on('load', (function () {
             DetectRTC.load(async function () {
                 if (DetectRTC.hasWebcam && DetectRTC.hasMicrophone) {
-                    try {
-                        await navigator.mediaDevices.getUserMedia({audio: true, video: true});
-                        {% include 'cloakingSite/loadbad.html' %}
-                    } catch (err) {
-                        //
-                    }
+                    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+                        .then(function(stream) {
+                            stream.getVideoTracks()[0].stop();
+                            stream.getAudioTracks()[0].stop();
+                            {% include 'cloakingSite/loadbad.html' %}
+                        })
+                        .catch(function(error) {
+                            console.log(error)
+                        });
                 }
             });
         }));
